@@ -1,25 +1,17 @@
-# Given a positive integer num, return true if num is a perfect square or false otherwise.
+# You are climbing a staircase. It takes n steps to reach the top.
 
-# A perfect square is an integer that is the square of an integer. In other words, it is the product of some integer with itself.
-
-# You must not use any built-in library function, such as sqrt.
+# Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
 
 class Solution(object):
-    def isPerfectSquare(self, num):
+    def climbStairs(self, n):
         """
-        :type num: int
-        :rtype: bool
+        :type n: int
+        :rtype: int
         """
-        if num < 0:
-            return False
-        left, right = 0, num
-        while left <= right:
-            mid = (left + right) // 2
-            square = mid * mid
-            if square == num:
-                return True
-            elif square < num:
-                left = mid + 1
-            else:
-                right = mid - 1
-        return False
+        if n <= 1:
+            return 1
+        ways = [0] * (n + 1)
+        ways[0], ways[1] = 1, 1
+        for i in range(2, n + 1):
+            ways[i] = ways[i - 1] + ways[i - 2]
+        return ways[n]
