@@ -1,19 +1,23 @@
-# You are given an integer array cost where cost[i] is the cost of ith step on a staircase. Once you pay the cost, you can either climb one or two steps.
+# The Tribonacci sequence Tn is defined as follows:
 
-# You can either start from the step with index 0, or the step with index 1.
+# T0 = 0, T1 = 1, T2 = 1, and Tn+3 = Tn + Tn+1 + Tn+2 for n >= 0.
 
-# Return the minimum cost to reach the top of the floor.
+# Given n, return the value of Tn.
 
 class Solution(object):
-    def minCostClimbingStairs(self, cost):
+    def tribonacci(self, n):
         """
-        :type cost: List[int]
+        :type n: int
         :rtype: int
         """
-        n = len(cost)
-        dp = [0] * (n + 1)
+        if n == 0:
+            return 0
+        elif n == 1 or n == 2:
+            return 1
 
-        for i in range(2, n + 1):
-            dp[i] = min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2])
+        t0, t1, t2 = 0, 1, 1
+        for i in range(3, n + 1):
+            t_next = t0 + t1 + t2
+            t0, t1, t2 = t1, t2, t_next
 
-        return dp[n]
+        return t2
