@@ -1,13 +1,25 @@
-# Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.
+# Given a positive integer num, return true if num is a perfect square or false otherwise.
 
-# You must not use any built-in exponent function or operator.
+# A perfect square is an integer that is the square of an integer. In other words, it is the product of some integer with itself.
 
-# For example, do not use pow(x, 0.5) in c++ or x ** 0.5 in python.
+# You must not use any built-in library function, such as sqrt.
 
 class Solution(object):
-    def mySqrt(self, x):
+    def isPerfectSquare(self, num):
         """
-        :type x: int
-        :rtype: int
+        :type num: int
+        :rtype: bool
         """
-        return int(math.sqrt(x))
+        if num < 0:
+            return False
+        left, right = 0, num
+        while left <= right:
+            mid = (left + right) // 2
+            square = mid * mid
+            if square == num:
+                return True
+            elif square < num:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return False
