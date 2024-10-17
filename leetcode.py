@@ -1,20 +1,17 @@
-# Given the head of a sorted linked list, delete all duplicates such that each element appears only once. Return the linked list sorted as well.
+# You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
 
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+# Merge nums1 and nums2 into a single array sorted in non-decreasing order.
+
+# The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
+
 class Solution(object):
-    def deleteDuplicates(self, head):
+    def merge(self, nums1, m, nums2, n):
         """
-        :type head: Optional[ListNode]
-        :rtype: Optional[ListNode]
+        :type nums1: List[int]
+        :type m: int
+        :type nums2: List[int]
+        :type n: int
+        :rtype: None Do not return anything, modify nums1 in-place instead.
         """
-        current = head
-        while current and current.next:
-            if current.val == current.next.val:
-                current.next = current.next.next
-            else:
-                current = current.next
-        return head
+        nums1[m:] = nums2
+        nums1.sort()
