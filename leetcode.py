@@ -1,27 +1,13 @@
-# Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.
+# Given a non-negative integer x, return the square root of x rounded down to the nearest integer. The returned integer should be non-negative as well.
 
-# You must solve the problem without using any built-in library for handling large integers (such as BigInteger). You must also not convert the inputs to integers directly.
+# You must not use any built-in exponent function or operator.
+
+# For example, do not use pow(x, 0.5) in c++ or x ** 0.5 in python.
 
 class Solution(object):
-    def addStrings(self, num1, num2):
+    def mySqrt(self, x):
         """
-        :type num1: str
-        :type num2: str
-        :rtype: str
+        :type x: int
+        :rtype: int
         """
-        result = []
-        carry = 0
-
-        i, j = len(num1) - 1, len(num2) - 1
-
-        while i >= 0 or j >= 0 or carry:
-            digit1 = int(num1[i]) if i >= 0 else 0
-            digit2 = int(num2[j]) if j >= 0 else 0
-            total = digit1 + digit2 + carry
-            result.append(str(total % 10))
-            carry = total // 10
-
-            i -= 1
-            j -= 1
-
-        return ''.join(reversed(result))
+        return int(math.sqrt(x))
