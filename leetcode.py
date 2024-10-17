@@ -1,17 +1,22 @@
-# You are given two integer arrays nums1 and nums2, sorted in non-decreasing order, and two integers m and n, representing the number of elements in nums1 and nums2 respectively.
+# Given the root of a binary tree, return the inorder traversal of its nodes' values.
 
-# Merge nums1 and nums2 into a single array sorted in non-decreasing order.
-
-# The final sorted array should not be returned by the function, but instead be stored inside the array nums1. To accommodate this, nums1 has a length of m + n, where the first m elements denote the elements that should be merged, and the last n elements are set to 0 and should be ignored. nums2 has a length of n.
-
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution(object):
-    def merge(self, nums1, m, nums2, n):
+    def inorderTraversal(self, root):
         """
-        :type nums1: List[int]
-        :type m: int
-        :type nums2: List[int]
-        :type n: int
-        :rtype: None Do not return anything, modify nums1 in-place instead.
+        :type root: Optional[TreeNode]
+        :rtype: List[int]
         """
-        nums1[m:] = nums2
-        nums1.sort()
+        result = []
+        def traverse(node):
+            if node:
+                traverse(node.left)
+                result.append(node.val)
+                traverse(node.right)
+        traverse(root)
+        return result
