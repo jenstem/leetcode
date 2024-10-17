@@ -1,15 +1,27 @@
-# The array-form of an integer num is an array representing its digits in left to right order.
+# Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.
 
-# For example, for num = 1321, the array form is [1,3,2,1].
-# Given num, the array-form of an integer, and an integer k, return the array-form of the integer num + k.
+# You must solve the problem without using any built-in library for handling large integers (such as BigInteger). You must also not convert the inputs to integers directly.
 
 class Solution(object):
-    def addToArrayForm(self, num, k):
+    def addStrings(self, num1, num2):
         """
-        :type num: List[int]
-        :type k: int
-        :rtype: List[int]
+        :type num1: str
+        :type num2: str
+        :rtype: str
         """
-        num_str = ''.join(map(str, num))
-        total = int(num_str) + k
-        return [int(digit) for digit in str(total)]
+        result = []
+        carry = 0
+
+        i, j = len(num1) - 1, len(num2) - 1
+
+        while i >= 0 or j >= 0 or carry:
+            digit1 = int(num1[i]) if i >= 0 else 0
+            digit2 = int(num2[j]) if j >= 0 else 0
+            total = digit1 + digit2 + carry
+            result.append(str(total % 10))
+            carry = total // 10
+
+            i -= 1
+            j -= 1
+
+        return ''.join(reversed(result))
