@@ -1,4 +1,5 @@
-# Given a binary tree, determine if it is height-balanced
+# Given an integer array nums where the elements are sorted in ascending order, convert it to a
+# height-balanced binary search tree.
 
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -7,22 +8,17 @@
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def isBalanced(self, root):
+    def sortedArrayToBST(self, nums):
         """
-        :type root: Optional[TreeNode]
-        :rtype: bool
+        :type nums: List[int]
+        :rtype: Optional[TreeNode]
         """
-        def check_height(node):
-            if not node:
-                return 0
-            left_height = check_height(node.left)
-            if left_height == -1:
-                return -1
-            right_height = check_height(node.right)
-            if right_height == -1:
-                return -1
-            if abs(left_height - right_height) > 1:
-                return -1
-            return max(left_height, right_height) + 1
+        def convertToBST(left, right):
+            if left > right:
+                return None
+            mid = (left + right) >> 1
+            left = convertToBST(left, mid - 1)
+            right = convertToBST(mid + 1, right)
+            return TreeNode(nums[mid], left, right)
 
-        return check_height(root) != -1
+        return convertToBST(0, len(nums) - 1)
