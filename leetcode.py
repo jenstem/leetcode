@@ -1,5 +1,8 @@
-# Given an integer array nums where the elements are sorted in ascending order, convert it to a
-# height-balanced binary search tree.
+# Given a binary tree, find its minimum depth.
+
+# The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
+
+# Note: A leaf is a node with no children.
 
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -8,17 +11,15 @@
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def sortedArrayToBST(self, nums):
+    def minDepth(self, root):
         """
-        :type nums: List[int]
-        :rtype: Optional[TreeNode]
+        :type root: Optional[TreeNode]
+        :rtype: int
         """
-        def convertToBST(left, right):
-            if left > right:
-                return None
-            mid = (left + right) >> 1
-            left = convertToBST(left, mid - 1)
-            right = convertToBST(mid + 1, right)
-            return TreeNode(nums[mid], left, right)
-
-        return convertToBST(0, len(nums) - 1)
+        if root is None:
+            return 0
+        if root.left is None:
+            return 1 + self.minDepth(root.right)
+        if root.right is None:
+            return 1 + self.minDepth(root.left)
+        return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
