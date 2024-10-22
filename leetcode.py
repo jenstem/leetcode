@@ -1,8 +1,6 @@
-# Given a binary tree, find its minimum depth.
-
-# The minimum depth is the number of nodes along the shortest path from the root node down to the nearest leaf node.
-
-# Note: A leaf is a node with no children.
+# Given the root of a binary tree and an integer targetSum,
+# return true if the tree has a root-to-leaf path such that
+# adding up all the values along the path equals targetSum.
 
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -11,15 +9,18 @@
 #         self.left = left
 #         self.right = right
 class Solution(object):
-    def minDepth(self, root):
+    def hasPathSum(self, root, targetSum):
         """
         :type root: Optional[TreeNode]
-        :rtype: int
+        :type targetSum: int
+        :rtype: bool
         """
-        if root is None:
-            return 0
-        if root.left is None:
-            return 1 + self.minDepth(root.right)
-        if root.right is None:
-            return 1 + self.minDepth(root.left)
-        return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
+        def depth_first(root, s):
+            if root is None:
+                return False
+            s += root.val
+            if root.left is None and root.right is None and s == targetSum:
+                return True
+            return depth_first(root.left, s) or depth_first(root.right, s)
+
+        return depth_first(root, 0)
