@@ -1,26 +1,17 @@
-# Given the root of a binary tree and an integer targetSum,
-# return true if the tree has a root-to-leaf path such that
-# adding up all the values along the path equals targetSum.
+# Given an integer numRows, return the first numRows of Pascal's triangle.
 
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+# In Pascal's triangle, each number is the sum of the two numbers directly above it
+
 class Solution(object):
-    def hasPathSum(self, root, targetSum):
+    def generate(self, numRows):
         """
-        :type root: Optional[TreeNode]
-        :type targetSum: int
-        :rtype: bool
+        :type numRows: int
+        :rtype: List[List[int]]
         """
-        def depth_first(root, s):
-            if root is None:
-                return False
-            s += root.val
-            if root.left is None and root.right is None and s == targetSum:
-                return True
-            return depth_first(root.left, s) or depth_first(root.right, s)
-
-        return depth_first(root, 0)
+        triangle = []
+        for row_num in range(numRows):
+            row = [1] * (row_num + 1)
+            for j in range(1, row_num):
+                row[j] = triangle[row_num - 1][j - 1] + triangle[row_num - 1][j]
+            triangle.append(row)
+        return triangle
