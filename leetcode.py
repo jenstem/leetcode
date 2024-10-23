@@ -1,14 +1,23 @@
-# Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
+# You are given an array prices where prices[i] is the price of a given stock on the ith day.
 
-# In Pascal's triangle, each number is the sum of the two numbers directly above it
+# You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+# Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
 
 class Solution(object):
-    def getRow(self, rowIndex):
+    def isPalindrome(self, s):
         """
-        :type rowIndex: int
-        :rtype: List[int]
+        :type s: str
+        :rtype: bool
         """
-        row = [1]
-        for _ in range(rowIndex):
-            row.append(row[-1] * (rowIndex - _) // (_ + 1))
-        return row
+        i, j = 0, len(s) - 1
+        while i < j:
+            if not s[i].isalnum():
+                i += 1
+            elif not s[j].isalnum():
+                j -= 1
+            elif s[i].lower() != s[j].lower():
+                return False
+            else:
+                i, j = i + 1, j - 1
+        return True
