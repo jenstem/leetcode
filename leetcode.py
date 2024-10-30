@@ -1,23 +1,29 @@
-# Given the head of a linked list and an integer val, remove all the nodes of the linked list that has Node.val == val, and return the new head.
+# Write an algorithm to determine if a number n is happy.
 
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+# A happy number is a number defined by the following process:
+
+# Starting with any positive integer, replace the number by the sum of the squares of its digits.
+# Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.
+# Those numbers for which this process ends in 1 are happy.
+# Return true if n is a happy number, and false if not.
+
 class Solution(object):
-    def removeElements(self, head, val):
+    def isHappy(self, n):
         """
-        :type head: Optional[ListNode]
-        :type val: int
-        :rtype: Optional[ListNode]
+        :type n: int
+        :rtype: bool
         """
-        dummy = ListNode(0)
-        dummy.next = head
-        current = dummy
-        while current.next:
-            if current.next.val == val:
-                current.next = current.next.next
-            else:
-                current = current.next
-        return dummy.next
+        def get_next(number):
+            total_sum = 0
+            while number > 0:
+                digit = number % 10
+                total_sum += digit ** 2
+                number //= 10
+            return total_sum
+
+        seen = set()
+        while n != 1 and n not in seen:
+            seen.add(n)
+            n = get_next(n)
+
+        return n == 1
