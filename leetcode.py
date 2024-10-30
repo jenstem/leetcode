@@ -1,29 +1,32 @@
-# Write an algorithm to determine if a number n is happy.
+# Given two strings s and t, determine if they are isomorphic.
 
-# A happy number is a number defined by the following process:
+# Two strings s and t are isomorphic if the characters in s can be replaced to get t.
 
-# Starting with any positive integer, replace the number by the sum of the squares of its digits.
-# Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.
-# Those numbers for which this process ends in 1 are happy.
-# Return true if n is a happy number, and false if not.
+# All occurrences of a character must be replaced with another character while preserving the order of characters. No two characters may map to the same character, but a character may map to itself.
 
 class Solution(object):
-    def isHappy(self, n):
+    def isIsomorphic(self, s, t):
         """
-        :type n: int
+        :type s: str
+        :type t: str
         :rtype: bool
         """
-        def get_next(number):
-            total_sum = 0
-            while number > 0:
-                digit = number % 10
-                total_sum += digit ** 2
-                number //= 10
-            return total_sum
+        if len(s) != len(t):
+            return False
 
-        seen = set()
-        while n != 1 and n not in seen:
-            seen.add(n)
-            n = get_next(n)
+        s_to_t = {}
+        t_to_s = {}
 
-        return n == 1
+        for char_s, char_t in zip(s, t):
+            if char_s in s_to_t:
+                if s_to_t[char_s] != char_t:
+                    return False
+            else:
+                s_to_t[char_s] = char_t
+            if char_t in t_to_s:
+                if t_to_s[char_t] != char_s:
+                    return False
+            else:
+                t_to_s[char_t] = char_s
+
+        return True
