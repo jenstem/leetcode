@@ -1,21 +1,9 @@
-# Given the head of a singly linked list, reverse the list, and return the reversed list.
+# Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
 
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
 class Solution(object):
-    def reverseList(self, head):
+    def containsDuplicate(self, nums):
         """
-        :type head: Optional[ListNode]
-        :rtype: Optional[ListNode]
+        :type nums: List[int]
+        :rtype: bool
         """
-        prev = None
-        current = head
-        while current:
-            next_node = current.next
-            current.next = prev
-            prev = current
-            current = next_node
-        return prev
+        return len(nums) != len(set(nums))
