@@ -1,15 +1,52 @@
-# Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.
+# Implement a last-in-first-out (LIFO) stack using only two queues. The implemented stack should support all the functions of a normal stack (push, top, pop, and empty).
 
-class Solution(object):
-    def containsNearbyDuplicate(self, nums, k):
+# Implement the MyStack class:
+
+# void push(int x) Pushes element x to the top of the stack.
+# int pop() Removes the element on the top of the stack and returns it.
+# int top() Returns the element on the top of the stack.
+# boolean empty() Returns true if the stack is empty, false otherwise.
+# Notes:
+
+# You must use only standard operations of a queue, which means that only push to back, peek/pop from front, size and is empty operations are valid.
+# Depending on your language, the queue may not be supported natively. You may simulate a queue using a list or deque (double-ended queue) as long as you use only a queue's standard operations.
+
+from collections import deque
+
+
+class MyStack(object):
+
+    def __init__(self):
+        self.queue1 = deque()
+        self.queue2 = deque()
+
+
+    def push(self, x):
         """
-        :type nums: List[int]
-        :type k: int
+        :type x: int
+        :rtype: None
+        """
+        self.queue2.append(x)
+        while self.queue1:
+            self.queue2.append(self.queue1.popleft())
+        self.queue1, self.queue2 = self.queue2, self.queue1
+
+
+    def pop(self):
+        """
+        :rtype: int
+        """
+        return self.queue1.popleft()
+
+    def top(self):
+        """
+        :rtype: int
+        """
+        return self.queue1[0]
+
+
+    def empty(self):
+        """
         :rtype: bool
         """
-        num_dict = {}
-        for i, num in enumerate(nums):
-            if num in num_dict and abs(i - num_dict[num]) <= k:
-                return True
-            num_dict[num] = i
-        return False
+        return len(self.queue1) == 0
