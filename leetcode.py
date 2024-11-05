@@ -1,23 +1,13 @@
-# Given the root of a binary tree, invert the tree, and return its root.
+# Given an integer n, return true if it is a power of two. Otherwise, return false.
 
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+# An integer n is a power of two, if there exists an integer x such that n == 2x.
+
 class Solution(object):
-    def invertTree(self, root):
+    def isPowerOfTwo(self, n):
         """
-        :type root: Optional[TreeNode]
-        :rtype: Optional[TreeNode]
+        :type n: int
+        :rtype: bool
         """
-        def dfs(root):
-            if root is None:
-                return
-            root.left, root.right = root.right, root.left
-            dfs(root.left)
-            dfs(root.right)
-
-        dfs(root)
-        return root
+        if n <= 0:
+            return False
+        return (n & (n - 1)) == 0
