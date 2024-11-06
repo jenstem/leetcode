@@ -1,61 +1,31 @@
-# Implement a first in first out (FIFO) queue using only two stacks. The implemented queue should support all the functions of a normal queue (push, peek, pop, and empty).
+# Given the root of a binary tree, return all root-to-leaf paths in any order.
 
-# Implement the MyQueue class:
+# A leaf is a node with no children.
 
-# void push(int x) Pushes element x to the back of the queue.
-# int pop() Removes the element from the front of the queue and returns it.
-# int peek() Returns the element at the front of the queue.
-# boolean empty() Returns true if the queue is empty, false otherwise.
-# Notes:
-
-# You must use only standard operations of a stack, which means only push to top, peek/pop from top, size, and is empty operations are valid.
-# Depending on your language, the stack may not be supported natively. You may simulate a stack using a list or deque (double-ended queue) as long as you use only a stack's standard operations.
-
-class MyQueue(object):
-
-
-    def __init__(self):
-        self.stack1 = []
-        self.stack2 = []
-
-
-    def push(self, x):
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution(object):
+    def binaryTreePaths(self, root):
         """
-        :type x: int
-        :rtype: None
+        :type root: Optional[TreeNode]
+        :rtype: List[str]
         """
-        self.stack1.append(x)
+        if not root:
+            return []
+        paths = []
+        self.dfs(root, "", paths)
+        return paths
 
+    def dfs(self, node, path, paths):
+        if not node.left and not node.right:
+            paths.append(path + str(node.val))
+            return
 
-    def pop(self):
-        """
-        :rtype: int
-        """
-        self.peek()
-        return self.stack2.pop()
-
-
-
-    def peek(self):
-        """
-        :rtype: int
-        """
-        if not self.stack2:
-            while self.stack1:
-                self.stack2.append(self.stack1.pop())
-        return self.stack2[-1]
-
-
-    def empty(self):
-        """
-        :rtype: bool
-        """
-        return not self.stack1 and not self.stack2
-
-
-# Your MyQueue object will be instantiated and called as such:
-# obj = MyQueue()
-# obj.push(x)
-# param_2 = obj.pop()
-# param_3 = obj.peek()
-# param_4 = obj.empty()
+        if node.left:
+            self.dfs(node.left, path + str(node.val) + "->", paths)
+        if node.right:
+            self.dfs(node.right, path + str(node.val) + "->", paths)
