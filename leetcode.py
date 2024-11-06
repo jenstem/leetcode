@@ -1,31 +1,16 @@
-# Given the root of a binary tree, return all root-to-leaf paths in any order.
+# An ugly number is a positive integer whose prime factors are limited to 2, 3, and 5.
 
-# A leaf is a node with no children.
+# Given an integer n, return true if n is an ugly number.
 
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution(object):
-    def binaryTreePaths(self, root):
+    def isUgly(self, n):
         """
-        :type root: Optional[TreeNode]
-        :rtype: List[str]
+        :type n: int
+        :rtype: bool
         """
-        if not root:
-            return []
-        paths = []
-        self.dfs(root, "", paths)
-        return paths
-
-    def dfs(self, node, path, paths):
-        if not node.left and not node.right:
-            paths.append(path + str(node.val))
-            return
-
-        if node.left:
-            self.dfs(node.left, path + str(node.val) + "->", paths)
-        if node.right:
-            self.dfs(node.right, path + str(node.val) + "->", paths)
+        if n <= 0:
+            return False
+        for prime in [2,3,5]:
+            while n % prime == 0:
+                n //= prime
+        return n == 1
