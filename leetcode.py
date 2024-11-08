@@ -1,26 +1,17 @@
-# You are a product manager and currently leading a team to develop a new product. Unfortunately, the latest version of your product fails the quality check. Since each version is developed based on the previous version, all the versions after a bad version are also bad.
+# Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 
-# Suppose you have n versions [1, 2, ..., n] and you want to find out the first bad one, which causes all the following ones to be bad.
-
-# You are given an API bool isBadVersion(version) which returns whether version is bad. Implement a function to find the first bad version. You should minimize the number of calls to the API.
-
-
-# The isBadVersion API is already defined for you.
-# @param version, an integer
-# @return a bool
-# def isBadVersion(version):
+# Note that you must do this in-place without making a copy of the array.
 
 class Solution(object):
-    def firstBadVersion(self, n):
+    def moveZeroes(self, nums):
         """
-        :type n: int
-        :rtype: int
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
         """
-        left, right = 1, n
-        while left < right:
-            mid = left + (right - left) // 2
-            if isBadVersion(mid):
-                right = mid
-            else:
-                left = mid + 1
-        return left
+        last_non_zero_index = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[last_non_zero_index] = nums[i]
+                last_non_zero_index += 1
+        for i in range(last_non_zero_index, len(nums)):
+            nums[i] = 0
