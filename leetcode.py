@@ -1,17 +1,29 @@
-# Given an integer array nums, move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+# Given a pattern and a string s, find if s follows the same pattern.
 
-# Note that you must do this in-place without making a copy of the array.
+# Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in s. Specifically:
 
-class Solution(object):
-    def moveZeroes(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: None Do not return anything, modify nums in-place instead.
-        """
-        last_non_zero_index = 0
-        for i in range(len(nums)):
-            if nums[i] != 0:
-                nums[last_non_zero_index] = nums[i]
-                last_non_zero_index += 1
-        for i in range(last_non_zero_index, len(nums)):
-            nums[i] = 0
+# Each letter in pattern maps to exactly one unique word in s.
+# Each unique word in s maps to exactly one letter in pattern.
+# No two letters map to the same word, and no two words map to the same letter.
+
+def wordPattern(pattern: str, s: str) -> bool:
+    words = s.split()
+    if len(pattern) != len(words):
+        return False
+
+    char_to_word = {}
+    word_to_char = {}
+
+    for char, word in zip(pattern, words):
+        if char in char_to_word:
+            if char_to_word[char] != word:
+                return False
+        else:
+            char_to_word[char] = word
+        if word in word_to_char:
+            if word_to_char[word] != char:
+                return False
+        else:
+            word_to_char[word] = char
+
+    return True
