@@ -1,29 +1,36 @@
-# Given a pattern and a string s, find if s follows the same pattern.
+# +-------------+---------+
+# | Column Name | Type    |
+# +-------------+---------+
+# | empId       | int     |
+# | name        | varchar |
+# | supervisor  | int     |
+# | salary      | int     |
+# +-------------+---------+
+# empId is the column with unique values for this table.
+# Each row of this table indicates the name and the ID of an employee in addition to their salary and the id of their manager.
 
-# Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in s. Specifically:
 
-# Each letter in pattern maps to exactly one unique word in s.
-# Each unique word in s maps to exactly one letter in pattern.
-# No two letters map to the same word, and no two words map to the same letter.
+# Table: Bonus
 
-def wordPattern(pattern: str, s: str) -> bool:
-    words = s.split()
-    if len(pattern) != len(words):
-        return False
+# +-------------+------+
+# | Column Name | Type |
+# +-------------+------+
+# | empId       | int  |
+# | bonus       | int  |
+# +-------------+------+
+# empId is the column of unique values for this table.
+# empId is a foreign key (reference column) to empId from the Employee table.
+# Each row of this table contains the id of an employee and their respective bonus.
 
-    char_to_word = {}
-    word_to_char = {}
 
-    for char, word in zip(pattern, words):
-        if char in char_to_word:
-            if char_to_word[char] != word:
-                return False
-        else:
-            char_to_word[char] = word
-        if word in word_to_char:
-            if word_to_char[word] != char:
-                return False
-        else:
-            word_to_char[word] = char
+# Write a solution to report the name and bonus amount of each employee with a bonus less than 1000.
 
-    return True
+# Return the result table in any order.
+
+# The result format is in the following example.
+
+SELECT name, bonus
+FROM
+    Employee
+    LEFT JOIN Bonus USING (empId)
+WHERE IFNULL(bonus, 0) < 1000;
