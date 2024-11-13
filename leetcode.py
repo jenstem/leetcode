@@ -2,33 +2,20 @@
 # | Column Name | Type    |
 # +-------------+---------+
 # | id          | int     |
-# | name        | varchar |
+# | email       | varchar |
 # +-------------+---------+
 # id is the primary key (column with unique values) for this table.
-# Each row of this table indicates the ID and name of a customer.
+# Each row of this table contains an email. The emails will not contain uppercase letters.
 
 
-# Table: Orders
+# Write a solution to delete all duplicate emails, keeping only one unique email with the smallest id.
 
-# +-------------+------+
-# | Column Name | Type |
-# +-------------+------+
-# | id          | int  |
-# | customerId  | int  |
-# +-------------+------+
-# id is the primary key (column with unique values) for this table.
-# customerId is a foreign key (reference columns) of the ID from the Customers table.
-# Each row of this table indicates the ID of an order and the ID of the customer who ordered it.
+# For SQL users, please note that you are supposed to write a DELETE statement and not a SELECT one.
+
+# For Pandas users, please note that you are supposed to modify Person in place.
+
+# After running your script, the answer shown is the Person table. The driver will first compile and run your piece of code and then show the Person table. The final order of the Person table does not matter.
 
 
-# Write a solution to find all customers who never order anything.
-
-# Return the result table in any order.
-
-SELECT name AS Customers
-FROM Customers
-WHERE
-    id NOT IN (
-        SELECT customerId
-        FROM Orders
-    );
+DELETE FROM Person
+WHERE id NOT IN (SELECT MIN(id) FROM (SELECT * FROM Person) AS p GROUP BY email);
