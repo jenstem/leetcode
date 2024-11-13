@@ -2,17 +2,33 @@
 # | Column Name | Type    |
 # +-------------+---------+
 # | id          | int     |
-# | email       | varchar |
+# | name        | varchar |
 # +-------------+---------+
 # id is the primary key (column with unique values) for this table.
-# Each row of this table contains an email. The emails will not contain uppercase letters.
+# Each row of this table indicates the ID and name of a customer.
 
 
-# Write a solution to report all the duplicate emails. Note that it's guaranteed that the email field is not NULL.
+# Table: Orders
+
+# +-------------+------+
+# | Column Name | Type |
+# +-------------+------+
+# | id          | int  |
+# | customerId  | int  |
+# +-------------+------+
+# id is the primary key (column with unique values) for this table.
+# customerId is a foreign key (reference columns) of the ID from the Customers table.
+# Each row of this table indicates the ID of an order and the ID of the customer who ordered it.
+
+
+# Write a solution to find all customers who never order anything.
 
 # Return the result table in any order.
 
-SELECT email
-FROM Person
-GROUP BY email
-HAVING COUNT(email) > 1;
+SELECT name AS Customers
+FROM Customers
+WHERE
+    id NOT IN (
+        SELECT customerId
+        FROM Orders
+    );
