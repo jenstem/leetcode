@@ -1,21 +1,20 @@
-# +---------------+---------+
-# | Column Name   | Type    |
-# +---------------+---------+
-# | id            | int     |
-# | recordDate    | date    |
-# | temperature   | int     |
-# +---------------+---------+
-# id is the column with unique values for this table.
-# There are no different rows with the same recordDate.
-# This table contains information about the temperature on a certain day.
+# +--------------+---------+
+# | Column Name  | Type    |
+# +--------------+---------+
+# | player_id    | int     |
+# | device_id    | int     |
+# | event_date   | date    |
+# | games_played | int     |
+# +--------------+---------+
+# (player_id, event_date) is the primary key (combination of columns with unique values) of this table.
+# This table shows the activity of players of some games.
+# Each row is a record of a player who logged in and played a number of games (possibly 0) before logging out on someday using some device.
 
 
-# Write a solution to find all dates' id with higher temperatures compared to its previous dates (yesterday).
+# Write a solution to find the first login date for each player.
 
 # Return the result table in any order.
 
-SELECT w1.id
-FROM
-    Weather AS w1
-    JOIN Weather AS w2
-        ON DATEDIFF(w1.recordDate, w2.recordDate) = 1 AND w1.temperature > w2.temperature;
+SELECT player_id, MIN(event_date) AS first_login
+FROM Activity
+GROUP BY player_id;
