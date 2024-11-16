@@ -1,20 +1,18 @@
-# +--------------+---------+
-# | Column Name  | Type    |
-# +--------------+---------+
-# | player_id    | int     |
-# | device_id    | int     |
-# | event_date   | date    |
-# | games_played | int     |
-# +--------------+---------+
-# (player_id, event_date) is the primary key (combination of columns with unique values) of this table.
-# This table shows the activity of players of some games.
-# Each row is a record of a player who logged in and played a number of games (possibly 0) before logging out on someday using some device.
+# +-------------+---------+
+# | Column Name | Type    |
+# +-------------+---------+
+# | id          | int     |
+# | name        | varchar |
+# | referee_id  | int     |
+# +-------------+---------+
+# In SQL, id is the primary key column for this table.
+# Each row of this table indicates the id of a customer, their name, and the id of the customer who referred them.
 
 
-# Write a solution to find the first login date for each player.
+# Find the names of the customer that are not referred by the customer with id = 2.
 
 # Return the result table in any order.
 
-SELECT player_id, MIN(event_date) AS first_login
-FROM Activity
-GROUP BY player_id;
+SELECT name
+FROM Customer
+WHERE referee_id <> 2 OR referee_id IS NULL;
