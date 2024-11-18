@@ -1,21 +1,21 @@
-# +-------------+---------+
-# | Column Name | Type    |
-# +-------------+---------+
-# | id          | int     |
-# | email       | varchar |
-# +-------------+---------+
-# id is the primary key (column with unique values) for this table.
-# Each row of this table contains an email. The emails will not contain uppercase letters.
+# +---------------+---------+
+# | Column Name   | Type    |
+# +---------------+---------+
+# | id            | int     |
+# | recordDate    | date    |
+# | temperature   | int     |
+# +---------------+---------+
+# id is the column with unique values for this table.
+# There are no different rows with the same recordDate.
+# This table contains information about the temperature on a certain day.
 
 
-# Write a solution to delete all duplicate emails, keeping only one unique email with the smallest id.
+# Write a solution to find all dates' id with higher temperatures compared to its previous dates (yesterday).
 
-# For SQL users, please note that you are supposed to write a DELETE statement and not a SELECT one.
+# Return the result table in any order.
 
-# For Pandas users, please note that you are supposed to modify Person in place.
-
-# After running your script, the answer shown is the Person table. The driver will first compile and run your piece of code and then show the Person table. The final order of the Person table does not matter.
-
-
-DELETE FROM Person
-WHERE id NOT IN (SELECT MIN(id) FROM (SELECT * FROM Person) AS p GROUP BY email);
+SELECT w1.id
+FROM
+    Weather AS w1
+    JOIN Weather AS w2
+        ON DATEDIFF(w1.recordDate, w2.recordDate) = 1 AND w1.temperature > w2.temperature;
