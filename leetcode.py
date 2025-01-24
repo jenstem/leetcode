@@ -1,18 +1,37 @@
-# +-------------+---------+
-# | Column Name | Type    |
-# +-------------+---------+
-# | id          | int     |
-# | name        | varchar |
-# | referee_id  | int     |
-# +-------------+---------+
-# In SQL, id is the primary key column for this table.
-# Each row of this table indicates the id of a customer, their name, and the id of the customer who referred them.
+# Counting Bits #338
+
+# Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
 
 
-# Find the names of the customer that are not referred by the customer with id = 2.
 
-# Return the result table in any order.
+# Example 1:
 
-SELECT name
-FROM Customer
-WHERE referee_id <> 2 OR referee_id IS NULL;
+# Input: n = 2
+# Output: [0,1,1]
+# Explanation:
+# 0 --> 0
+# 1 --> 1
+# 2 --> 10
+# Example 2:
+
+# Input: n = 5
+# Output: [0,1,1,2,1,2]
+# Explanation:
+# 0 --> 0
+# 1 --> 1
+# 2 --> 10
+# 3 --> 11
+# 4 --> 100
+# 5 --> 101
+
+
+# Constraints:
+
+# 0 <= n <= 105
+
+class Solution:
+    def countBits(self, n: int) -> List[int]:
+        ans = [0] * (n + 1)
+        for i in range(1, n + 1):
+            ans[i] = ans[i & (i - 1)] + 1
+        return ans
