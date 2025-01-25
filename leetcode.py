@@ -1,37 +1,32 @@
-# Counting Bits #338
+# Reverse String #344
 
-# Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
+# Write a function that reverses a string. The input string is given as an array of characters s.
+
+# You must do this by modifying the input array in-place with O(1) extra memory.
 
 
 
 # Example 1:
 
-# Input: n = 2
-# Output: [0,1,1]
-# Explanation:
-# 0 --> 0
-# 1 --> 1
-# 2 --> 10
+# Input: s = ["h","e","l","l","o"]
+# Output: ["o","l","l","e","h"]
 # Example 2:
 
-# Input: n = 5
-# Output: [0,1,1,2,1,2]
-# Explanation:
-# 0 --> 0
-# 1 --> 1
-# 2 --> 10
-# 3 --> 11
-# 4 --> 100
-# 5 --> 101
+# Input: s = ["H","a","n","n","a","h"]
+# Output: ["h","a","n","n","a","H"]
 
 
 # Constraints:
 
-# 0 <= n <= 105
+# 1 <= s.length <= 105
+# s[i] is a printable ascii character.
 
 class Solution:
-    def countBits(self, n: int) -> List[int]:
-        ans = [0] * (n + 1)
-        for i in range(1, n + 1):
-            ans[i] = ans[i & (i - 1)] + 1
-        return ans
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        i, j = 0, len(s) - 1
+        while i < j:
+            s[i], s[j] = s[j], s[i]
+            i, j = i + 1, j - 1
