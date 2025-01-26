@@ -1,32 +1,27 @@
-# Reverse String #344
+# Intersection of Two Arrays #349
 
-# Write a function that reverses a string. The input string is given as an array of characters s.
-
-# You must do this by modifying the input array in-place with O(1) extra memory.
+# Given two integer arrays nums1 and nums2, return an array of their
+# intersection
+# . Each element in the result must be unique and you may return the result in any order.
 
 
 
 # Example 1:
 
-# Input: s = ["h","e","l","l","o"]
-# Output: ["o","l","l","e","h"]
+# Input: nums1 = [1,2,2,1], nums2 = [2,2]
+# Output: [2]
 # Example 2:
 
-# Input: s = ["H","a","n","n","a","h"]
-# Output: ["h","a","n","n","a","H"]
+# Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+# Output: [9,4]
+# Explanation: [4,9] is also accepted.
 
 
 # Constraints:
 
-# 1 <= s.length <= 105
-# s[i] is a printable ascii character.
+# 1 <= nums1.length, nums2.length <= 1000
+# 0 <= nums1[i], nums2[i] <= 1000
 
 class Solution:
-    def reverseString(self, s: List[str]) -> None:
-        """
-        Do not return anything, modify s in-place instead.
-        """
-        i, j = 0, len(s) - 1
-        while i < j:
-            s[i], s[j] = s[j], s[i]
-            i, j = i + 1, j - 1
+    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        return list(set(nums1) & set(nums2))
