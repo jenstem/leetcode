@@ -1,27 +1,41 @@
-# Intersection of Two Arrays #349
+# Fizz Buzz #412
 
-# Given two integer arrays nums1 and nums2, return an array of their
-# intersection
-# . Each element in the result must be unique and you may return the result in any order.
+# Given an integer n, return a string array answer (1-indexed) where:
 
+# answer[i] == "FizzBuzz" if i is divisible by 3 and 5.
+# answer[i] == "Fizz" if i is divisible by 3.
+# answer[i] == "Buzz" if i is divisible by 5.
+# answer[i] == i (as a string) if none of the above conditions are true.
 
 
 # Example 1:
 
-# Input: nums1 = [1,2,2,1], nums2 = [2,2]
-# Output: [2]
+# Input: n = 3
+# Output: ["1","2","Fizz"]
 # Example 2:
 
-# Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
-# Output: [9,4]
-# Explanation: [4,9] is also accepted.
+# Input: n = 5
+# Output: ["1","2","Fizz","4","Buzz"]
+# Example 3:
+
+# Input: n = 15
+# Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
 
 
 # Constraints:
 
-# 1 <= nums1.length, nums2.length <= 1000
-# 0 <= nums1[i], nums2[i] <= 1000
+# 1 <= n <= 104
 
 class Solution:
-    def intersection(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        return list(set(nums1) & set(nums2))
+    def fizzBuzz(self, n: int) -> List[str]:
+        ans = []
+        for i in range(1, n + 1):
+            if i % 15 == 0:
+                ans.append('FizzBuzz')
+            elif i % 3 == 0:
+                ans.append('Fizz')
+            elif i % 5 == 0:
+                ans.append('Buzz')
+            else:
+                ans.append(str(i))
+        return ans
