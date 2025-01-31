@@ -1,28 +1,47 @@
-# Number Complement #476
+# Number Complement #496
 
-# The complement of an integer is the integer you get when you flip all the 0's to 1's and all the 1's to 0's in its binary representation.
+# The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.
 
-# For example, The integer 5 is "101" in binary and its complement is "010" which is the integer 2.
-# Given an integer num, return its complement.
+# You are given two distinct 0-indexed integer arrays nums1 and nums2, where nums1 is a subset of nums2.
+
+# For each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2. If there is no next greater element, then the answer for this query is -1.
+
+# Return an array ans of length nums1.length such that ans[i] is the next greater element as described above.
 
 
 
 # Example 1:
 
-# Input: num = 5
-# Output: 2
-# Explanation: The binary representation of 5 is 101 (no leading zero bits), and its complement is 010. So you need to output 2.
+# Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
+# Output: [-1,3,-1]
+# Explanation: The next greater element for each value of nums1 is as follows:
+# - 4 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.
+# - 1 is underlined in nums2 = [1,3,4,2]. The next greater element is 3.
+# - 2 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.
 # Example 2:
 
-# Input: num = 1
-# Output: 0
-# Explanation: The binary representation of 1 is 1 (no leading zero bits), and its complement is 0. So you need to output 0.
+# Input: nums1 = [2,4], nums2 = [1,2,3,4]
+# Output: [3,-1]
+# Explanation: The next greater element for each value of nums1 is as follows:
+# - 2 is underlined in nums2 = [1,2,3,4]. The next greater element is 3.
+# - 4 is underlined in nums2 = [1,2,3,4]. There is no next greater element, so the answer is -1.
 
 
 # Constraints:
 
-# 1 <= num < 231
+# 1 <= nums1.length <= nums2.length <= 1000
+# 0 <= nums1[i], nums2[i] <= 104
+# All integers in nums1 and nums2 are unique.
+# All the integers of nums1 also appear in nums2.
 
 class Solution:
-    def findComplement(self, num: int) -> int:
-        return num ^ ((1 << num.bit_length()) - 1)
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        stk = []
+        d = {}
+        for x in nums2[::-1]:
+            while stk and stk[-1] < x:
+                stk.pop()
+            if stk:
+                d[x] = stk[-1]
+            stk.append(x)
+        return [d.get(x, -1) for x in nums1]
