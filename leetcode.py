@@ -1,47 +1,45 @@
-# Number Complement #496
+# Number Complement #500 Keyboard Row
 
-# The next greater element of some element x in an array is the first greater element that is to the right of x in the same array.
+# Given an array of strings words, return the words that can be typed using letters of the alphabet on only one row of American keyboard like the image below.
 
-# You are given two distinct 0-indexed integer arrays nums1 and nums2, where nums1 is a subset of nums2.
+# Note that the strings are case-insensitive, both lowercased and uppercased of the same letter are treated as if they are at the same row.
 
-# For each 0 <= i < nums1.length, find the index j such that nums1[i] == nums2[j] and determine the next greater element of nums2[j] in nums2. If there is no next greater element, then the answer for this query is -1.
+# In the American keyboard:
 
-# Return an array ans of length nums1.length such that ans[i] is the next greater element as described above.
-
-
+# the first row consists of the characters "qwertyuiop",
+# the second row consists of the characters "asdfghjkl", and
+# the third row consists of the characters "zxcvbnm".
 
 # Example 1:
 
-# Input: nums1 = [4,1,2], nums2 = [1,3,4,2]
-# Output: [-1,3,-1]
-# Explanation: The next greater element for each value of nums1 is as follows:
-# - 4 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.
-# - 1 is underlined in nums2 = [1,3,4,2]. The next greater element is 3.
-# - 2 is underlined in nums2 = [1,3,4,2]. There is no next greater element, so the answer is -1.
+# Input: words = ["Hello","Alaska","Dad","Peace"]
+
+# Output: ["Alaska","Dad"]
+
+# Explanation:
+
+# Both "a" and "A" are in the 2nd row of the American keyboard due to case insensitivity.
+
 # Example 2:
 
-# Input: nums1 = [2,4], nums2 = [1,2,3,4]
-# Output: [3,-1]
-# Explanation: The next greater element for each value of nums1 is as follows:
-# - 2 is underlined in nums2 = [1,2,3,4]. The next greater element is 3.
-# - 4 is underlined in nums2 = [1,2,3,4]. There is no next greater element, so the answer is -1.
+# Input: words = ["omk"]
 
+# Output: []
 
-# Constraints:
+# Example 3:
 
-# 1 <= nums1.length <= nums2.length <= 1000
-# 0 <= nums1[i], nums2[i] <= 104
-# All integers in nums1 and nums2 are unique.
-# All the integers of nums1 also appear in nums2.
+# Input: words = ["adsdf","sfd"]
+
+# Output: ["adsdf","sfd"]
 
 class Solution:
-    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        stk = []
-        d = {}
-        for x in nums2[::-1]:
-            while stk and stk[-1] < x:
-                stk.pop()
-            if stk:
-                d[x] = stk[-1]
-            stk.append(x)
-        return [d.get(x, -1) for x in nums1]
+    def findWords(self, words: List[str]) -> List[str]:
+        s1 = set('qwertyuiop')
+        s2 = set('asdfghjkl')
+        s3 = set('zxcvbnm')
+        ans = []
+        for w in words:
+            s = set(w.lower())
+            if s <= s1 or s <= s2 or s <= s3:
+                ans.append(w)
+        return ans
