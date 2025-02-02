@@ -1,45 +1,40 @@
-# Number Complement #500 Keyboard Row
+# Relative Ranks #506
 
-# Given an array of strings words, return the words that can be typed using letters of the alphabet on only one row of American keyboard like the image below.
+# You are given an integer array score of size n, where score[i] is the score of the ith athlete in a competition. All the scores are guaranteed to be unique.
 
-# Note that the strings are case-insensitive, both lowercased and uppercased of the same letter are treated as if they are at the same row.
+# The athletes are placed based on their scores, where the 1st place athlete has the highest score, the 2nd place athlete has the 2nd highest score, and so on. The placement of each athlete determines their rank:
 
-# In the American keyboard:
-
-# the first row consists of the characters "qwertyuiop",
-# the second row consists of the characters "asdfghjkl", and
-# the third row consists of the characters "zxcvbnm".
+# The 1st place athlete's rank is "Gold Medal".
+# The 2nd place athlete's rank is "Silver Medal".
+# The 3rd place athlete's rank is "Bronze Medal".
+# For the 4th place to the nth place athlete, their rank is their placement number (i.e., the xth place athlete's rank is "x").
+# Return an array answer of size n where answer[i] is the rank of the ith athlete.
 
 # Example 1:
 
-# Input: words = ["Hello","Alaska","Dad","Peace"]
-
-# Output: ["Alaska","Dad"]
-
-# Explanation:
-
-# Both "a" and "A" are in the 2nd row of the American keyboard due to case insensitivity.
-
+# Input: score = [5,4,3,2,1]
+# Output: ["Gold Medal","Silver Medal","Bronze Medal","4","5"]
+# Explanation: The placements are [1st, 2nd, 3rd, 4th, 5th].
 # Example 2:
 
-# Input: words = ["omk"]
+# Input: score = [10,3,8,9,4]
+# Output: ["Gold Medal","5","Bronze Medal","Silver Medal","4"]
+# Explanation: The placements are [1st, 5th, 3rd, 2nd, 4th].
 
-# Output: []
+# Constraints:
 
-# Example 3:
-
-# Input: words = ["adsdf","sfd"]
-
-# Output: ["adsdf","sfd"]
+# n == score.length
+# 1 <= n <= 104
+# 0 <= score[i] <= 106
+# All the values in score are unique.
 
 class Solution:
-    def findWords(self, words: List[str]) -> List[str]:
-        s1 = set('qwertyuiop')
-        s2 = set('asdfghjkl')
-        s3 = set('zxcvbnm')
-        ans = []
-        for w in words:
-            s = set(w.lower())
-            if s <= s1 or s <= s2 or s <= s3:
-                ans.append(w)
+    def findRelativeRanks(self, score: List[int]) -> List[str]:
+        n = len(score)
+        idx = list(range(n))
+        idx.sort(key=lambda x: -score[x])
+        top3 = ["Gold Medal", "Silver Medal", "Bronze Medal"]
+        ans = [None] * n
+        for i, j in enumerate(idx):
+            ans[j] = top3[i] if i < 3 else str(i + 1)
         return ans
