@@ -1,24 +1,35 @@
-# Reverse Words in a String III #557
+# Single Number II #137
 
-# Given a string s, reverse the order of characters in each word within a sentence while still preserving whitespace and initial word order.
+# Given an integer array nums where every element appears three times except for one, which appears exactly once. Find the single element and return it.
+
+# You must implement a solution with a linear runtime complexity and use only constant extra space.
+
+ 
 
 # Example 1:
 
-# Input: s = "Let's take LeetCode contest"
-# Output: "s'teL ekat edoCteeL tsetnoc"
+# Input: nums = [2,2,3,2]
+# Output: 3
 # Example 2:
 
-# Input: s = "Mr Ding"
-# Output: "rM gniD"
+# Input: nums = [0,1,0,1,0,1,99]
+# Output: 99
+ 
 
 # Constraints:
 
-# 1 <= s.length <= 5 * 104
-# s contains printable ASCII characters.
-# s does not contain any leading or trailing spaces.
-# There is at least one word in s.
-# All the words in s are separated by a single space.
+# 1 <= nums.length <= 3 * 104
+# -231 <= nums[i] <= 231 - 1
+# Each element in nums appears exactly three times except for one element which appears once.
 
 class Solution:
-    def reverseWords(self, s: str) -> str:
-        return " ".join(t[::-1] for t in s.split())
+    def singleNumber(self, nums: List[int]) -> int:
+        ans = 0
+        for i in range(32):
+            cnt = sum(num >> i & 1 for num in nums)
+            if cnt % 3:
+                if i == 31:
+                    ans -= 1 << i
+                else:
+                    ans |= 1 << i
+        return ans
