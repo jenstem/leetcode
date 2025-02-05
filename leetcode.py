@@ -1,35 +1,33 @@
-# Single Number II #137
+# Reverse Bit #190
 
-# Given an integer array nums where every element appears three times except for one, which appears exactly once. Find the single element and return it.
+# Reverse bits of a given 32 bits unsigned integer.
 
-# You must implement a solution with a linear runtime complexity and use only constant extra space.
+# Note:
 
+# Note that in some languages, such as Java, there is no unsigned integer type. In this case, both input and output will be given as a signed integer type. They should not affect your implementation, as the integer's internal binary representation is the same, whether it is signed or unsigned.
+# In Java, the compiler represents the signed integers using 2's complement notation. Therefore, in Example 2 above, the input represents the signed integer -3 and the output represents the signed integer -1073741825.
  
 
 # Example 1:
 
-# Input: nums = [2,2,3,2]
-# Output: 3
+# Input: n = 00000010100101000001111010011100
+# Output:    964176192 (00111001011110000010100101000000)
+# Explanation: The input binary string 00000010100101000001111010011100 represents the unsigned integer 43261596, so return 964176192 which its binary representation is 00111001011110000010100101000000.
 # Example 2:
 
-# Input: nums = [0,1,0,1,0,1,99]
-# Output: 99
+# Input: n = 11111111111111111111111111111101
+# Output:   3221225471 (10111111111111111111111111111111)
+# Explanation: The input binary string 11111111111111111111111111111101 represents the unsigned integer 4294967293, so return 3221225471 which its binary representation is 10111111111111111111111111111111.
  
 
 # Constraints:
 
-# 1 <= nums.length <= 3 * 104
-# -231 <= nums[i] <= 231 - 1
-# Each element in nums appears exactly three times except for one element which appears once.
+# The input must be a binary string of length 32
 
 class Solution:
-    def singleNumber(self, nums: List[int]) -> int:
+    def reverseBits(self, n: int) -> int:
         ans = 0
         for i in range(32):
-            cnt = sum(num >> i & 1 for num in nums)
-            if cnt % 3:
-                if i == 31:
-                    ans -= 1 << i
-                else:
-                    ans |= 1 << i
+            ans |= (n & 1) << (31 - i)
+            n >>= 1
         return ans
