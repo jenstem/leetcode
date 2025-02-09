@@ -1,59 +1,36 @@
-# Word Pattern #290
+# Power of Three #326
 
-# Given a pattern and a string s, find if s follows the same pattern.
+# Given an integer n, return true if it is a power of three. Otherwise, return false.
 
-# Here follow means a full match, such that there is a bijection between a letter in pattern and a non-empty word in s. Specifically:
+# An integer n is a power of three, if there exists an integer x such that n == 3x.
 
-# Each letter in pattern maps to exactly one unique word in s.
-# Each unique word in s maps to exactly one letter in pattern.
-# No two letters map to the same word, and no two words map to the same letter.
  
 
 # Example 1:
 
-# Input: pattern = "abba", s = "dog cat cat dog"
-
+# Input: n = 27
 # Output: true
-
-# Explanation:
-
-# The bijection can be established as:
-
-# 'a' maps to "dog".
-# 'b' maps to "cat".
+# Explanation: 27 = 33
 # Example 2:
 
-# Input: pattern = "abba", s = "dog cat cat fish"
-
+# Input: n = 0
 # Output: false
-
+# Explanation: There is no x where 3x = 0.
 # Example 3:
 
-# Input: pattern = "aaaa", s = "dog cat cat dog"
-
+# Input: n = -1
 # Output: false
-
+# Explanation: There is no x where 3x = (-1).
  
 
 # Constraints:
 
-# 1 <= pattern.length <= 300
-# pattern contains only lower-case English letters.
-# 1 <= s.length <= 3000
-# s contains only lowercase English letters and spaces ' '.
-# s does not contain any leading or trailing spaces.
-# All the words in s are separated by a single space.
+# -231 <= n <= 231 - 1
 
 class Solution:
-    def wordPattern(self, pattern: str, s: str) -> bool:
-        ws = s.split()
-        if len(pattern) != len(ws):
-            return False
-        d1 = {}
-        d2 = {}
-        for a, b in zip(pattern, ws):
-            if (a in d1 and d1[a] != b) or (b in d2 and d2[b] != a):
-                return False
-            d1[a] = b
-            d2[b] = a
-        return True
+    def isPowerOfThree(self, n: int) -> bool:
+            while n > 2:
+                if n % 3:
+                    return False
+                n //= 3
+            return n == 1
