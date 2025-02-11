@@ -1,33 +1,40 @@
-# Power of Four #342
+# Range Sum Query #303
 
-# Given an integer n, return true if it is a power of four. Otherwise, return false.
+# Given an integer array nums, handle multiple queries of the following type:
 
-# An integer n is a power of four, if there exists an integer x such that n == 4x.
+# Calculate the sum of the elements of nums between indices left and right inclusive where left <= right.
+# Implement the NumArray class:
 
+# NumArray(int[] nums) Initializes the object with the integer array nums.
+# int sumRange(int left, int right) Returns the sum of the elements of nums between indices left and right inclusive (i.e. nums[left] + nums[left + 1] + ... + nums[right]).
  
 
 # Example 1:
 
-# Input: n = 16
-# Output: true
-# Example 2:
+# Input
+# ["NumArray", "sumRange", "sumRange", "sumRange"]
+# [[[-2, 0, 3, -5, 2, -1]], [0, 2], [2, 5], [0, 5]]
+# Output
+# [null, 1, -1, -3]
 
-# Input: n = 5
-# Output: false
-# Example 3:
-
-# Input: n = 1
-# Output: true
+# Explanation
+# NumArray numArray = new NumArray([-2, 0, 3, -5, 2, -1]);
+# numArray.sumRange(0, 2); // return (-2) + 0 + 3 = 1
+# numArray.sumRange(2, 5); // return 3 + (-5) + 2 + (-1) = -1
+# numArray.sumRange(0, 5); // return (-2) + 0 + 3 + (-5) + 2 + (-1) = -3
  
 
 # Constraints:
 
-# -231 <= n <= 231 - 1
+# 1 <= nums.length <= 104
+# -105 <= nums[i] <= 105
+# 0 <= left <= right < nums.length
+# At most 104 calls will be made to sumRange.
 
-class Solution:
-    def isPowerOfFour(self, n: int) -> bool:
-        while n > 2:
-            if n % 4:
-                return False
-            n //= 4
-        return n == 1
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.s = list(accumulate(nums, initial=0))
+
+    def sumRange(self, left: int, right: int) -> int:
+        return self.s[right + 1] - self.s[left]
