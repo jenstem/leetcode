@@ -1,34 +1,45 @@
-# Counting Bits #338
+# Reverse Vowels of a String #345
 
-# Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
+# Given a string s, reverse only all the vowels in the string and return it.
+
+# The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
 
  
 
 # Example 1:
 
-# Input: n = 2
-# Output: [0,1,1]
+# Input: s = "IceCreAm"
+
+# Output: "AceCreIm"
+
 # Explanation:
-# 0 --> 0
-# 1 --> 1
-# 2 --> 10
+
+# The vowels in s are ['I', 'e', 'e', 'A']. On reversing the vowels, s becomes "AceCreIm".
+
 # Example 2:
 
-# Input: n = 5
-# Output: [0,1,1,2,1,2]
-# Explanation:
-# 0 --> 0
-# 1 --> 1
-# 2 --> 10
-# 3 --> 11
-# 4 --> 100
-# 5 --> 101
+# Input: s = "leetcode"
+
+# Output: "leotcede"
+
  
 
 # Constraints:
 
-# 0 <= n <= 105
+# 1 <= s.length <= 3 * 105
+# s consist of printable ASCII characters.
 
 class Solution:
-    def countBits(self, n: int) -> List[int]:
-        return [i.bit_count() for i in range(n + 1)]
+    def reverseVowels(self, s: str) -> str:
+        vowels = "aeiouAEIOU"
+        i, j = 0, len(s) - 1
+        cs = list(s)
+        while i < j:
+            while i < j and cs[i] not in vowels:
+                i += 1
+            while i < j and cs[j] not in vowels:
+                j -= 1
+            if i < j:
+                cs[i], cs[j] = cs[j], cs[i]
+                i, j = i + 1, j - 1
+        return "".join(cs)
