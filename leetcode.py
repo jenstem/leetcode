@@ -1,45 +1,29 @@
-# Reverse Vowels of a String #345
+# Intersection of Two Arrays II
 
-# Given a string s, reverse only all the vowels in the string and return it.
-
-# The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
-
- 
+# Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must appear as many times as it shows in both arrays and you may return the result in any order.
 
 # Example 1:
 
-# Input: s = "IceCreAm"
-
-# Output: "AceCreIm"
-
-# Explanation:
-
-# The vowels in s are ['I', 'e', 'e', 'A']. On reversing the vowels, s becomes "AceCreIm".
-
+# Input: nums1 = [1,2,2,1], nums2 = [2,2]
+# Output: [2,2]
 # Example 2:
 
-# Input: s = "leetcode"
-
-# Output: "leotcede"
-
+# Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+# Output: [4,9]
+# Explanation: [9,4] is also accepted.
  
 
 # Constraints:
 
-# 1 <= s.length <= 3 * 105
-# s consist of printable ASCII characters.
+# 1 <= nums1.length, nums2.length <= 1000
+# 0 <= nums1[i], nums2[i] <= 1000
 
 class Solution:
-    def reverseVowels(self, s: str) -> str:
-        vowels = "aeiouAEIOU"
-        i, j = 0, len(s) - 1
-        cs = list(s)
-        while i < j:
-            while i < j and cs[i] not in vowels:
-                i += 1
-            while i < j and cs[j] not in vowels:
-                j -= 1
-            if i < j:
-                cs[i], cs[j] = cs[j], cs[i]
-                i, j = i + 1, j - 1
-        return "".join(cs)
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        cnt = Counter(nums1)
+        ans = []
+        for x in nums2:
+            if cnt[x]:
+                ans.append(x)
+                cnt[x] -= 1
+        return ans
