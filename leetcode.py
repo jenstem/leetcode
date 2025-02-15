@@ -1,29 +1,32 @@
-# Intersection of Two Arrays II
+# Is Subsequence #392
 
-# Given two integer arrays nums1 and nums2, return an array of their intersection. Each element in the result must appear as many times as it shows in both arrays and you may return the result in any order.
+# Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+
+# A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+
+ 
 
 # Example 1:
 
-# Input: nums1 = [1,2,2,1], nums2 = [2,2]
-# Output: [2,2]
+# Input: s = "abc", t = "ahbgdc"
+# Output: true
 # Example 2:
 
-# Input: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
-# Output: [4,9]
-# Explanation: [9,4] is also accepted.
+# Input: s = "axc", t = "ahbgdc"
+# Output: false
  
 
 # Constraints:
 
-# 1 <= nums1.length, nums2.length <= 1000
-# 0 <= nums1[i], nums2[i] <= 1000
+# 0 <= s.length <= 100
+# 0 <= t.length <= 104
+# s and t consist only of lowercase English letters.
 
 class Solution:
-    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
-        cnt = Counter(nums1)
-        ans = []
-        for x in nums2:
-            if cnt[x]:
-                ans.append(x)
-                cnt[x] -= 1
-        return ans
+    def isSubsequence(self, s: str, t: str) -> bool:
+        i = j = 0
+        while i < len(s) and j < len(t):
+            if s[i] == t[j]:
+                i += 1
+            j += 1
+        return i == len(s)
