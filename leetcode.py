@@ -1,32 +1,35 @@
-# Is Subsequence #392
+# Convert a Number to Hexadecimal #405
 
-# Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+# Given a 32-bit integer num, return a string representing its hexadecimal representation. For negative integers, two’s complement method is used.
 
-# A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+# All the letters in the answer string should be lowercase characters, and there should not be any leading zeros in the answer except for the zero itself.
+
+# Note: You are not allowed to use any built-in library method to directly solve this problem.
 
  
 
 # Example 1:
 
-# Input: s = "abc", t = "ahbgdc"
-# Output: true
+# Input: num = 26
+# Output: "1a"
 # Example 2:
 
-# Input: s = "axc", t = "ahbgdc"
-# Output: false
+# Input: num = -1
+# Output: "ffffffff"
  
 
 # Constraints:
 
-# 0 <= s.length <= 100
-# 0 <= t.length <= 104
-# s and t consist only of lowercase English letters.
+# -231 <= num <= 231 - 1
 
 class Solution:
-    def isSubsequence(self, s: str, t: str) -> bool:
-        i = j = 0
-        while i < len(s) and j < len(t):
-            if s[i] == t[j]:
-                i += 1
-            j += 1
-        return i == len(s)
+    def toHex(self, num: int) -> str:
+        if num == 0:
+            return '0'
+        chars = '0123456789abcdef'
+        s = []
+        for i in range(7, -1, -1):
+            x = (num >> (4 * i)) & 0xF
+            if s or x != 0:
+                s.append(chars[x])
+        return ''.join(s)
