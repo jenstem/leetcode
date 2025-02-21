@@ -1,35 +1,39 @@
-# Convert a Number to Hexadecimal #405
+# Guess Number Higher or Lower #374
 
-# Given a 32-bit integer num, return a string representing its hexadecimal representation. For negative integers, two’s complement method is used.
+# We are playing the Guess Game. The game is as follows:
 
-# All the letters in the answer string should be lowercase characters, and there should not be any leading zeros in the answer except for the zero itself.
+# I pick a number from 1 to n. You have to guess which number I picked.
 
-# Note: You are not allowed to use any built-in library method to directly solve this problem.
+# Every time you guess wrong, I will tell you whether the number I picked is higher or lower than your guess.
+
+# You call a pre-defined API int guess(int num), which returns three possible results:
+
+# -1: Your guess is higher than the number I picked (i.e. num > pick).
+# 1: Your guess is lower than the number I picked (i.e. num < pick).
+# 0: your guess is equal to the number I picked (i.e. num == pick).
+# Return the number that I picked.
 
  
 
 # Example 1:
 
-# Input: num = 26
-# Output: "1a"
+# Input: n = 10, pick = 6
+# Output: 6
 # Example 2:
 
-# Input: num = -1
-# Output: "ffffffff"
+# Input: n = 1, pick = 1
+# Output: 1
+# Example 3:
+
+# Input: n = 2, pick = 1
+# Output: 1
  
 
 # Constraints:
 
-# -231 <= num <= 231 - 1
+# 1 <= n <= 231 - 1
+# 1 <= pick <= n
 
 class Solution:
-    def toHex(self, num: int) -> str:
-        if num == 0:
-            return '0'
-        chars = '0123456789abcdef'
-        s = []
-        for i in range(7, -1, -1):
-            x = (num >> (4 * i)) & 0xF
-            if s or x != 0:
-                s.append(chars[x])
-        return ''.join(s)
+    def guessNumber(self, n: int) -> int:
+        return bisect.bisect(range(1, n + 1), 0, key=lambda x: -guess(x))
