@@ -1,35 +1,41 @@
-# Ransom Note #383
+# First Unique Character in a String #387
 
-# Given two strings ransomNote and magazine, return true if ransomNote can be constructed by using the letters from magazine and false otherwise.
+# Given a string s, find the first non-repeating character in it and return its index. If it does not exist, return -1.
 
-# Each letter in magazine can only be used once in ransomNote.
-
- 
 
 # Example 1:
 
-# Input: ransomNote = "a", magazine = "b"
-# Output: false
+# Input: s = "leetcode"
+
+# Output: 0
+
+# Explanation:
+
+# The character 'l' at index 0 is the first character that does not occur at any other index.
+
 # Example 2:
 
-# Input: ransomNote = "aa", magazine = "ab"
-# Output: false
+# Input: s = "loveleetcode"
+
+# Output: 2
+
 # Example 3:
 
-# Input: ransomNote = "aa", magazine = "aab"
-# Output: true
- 
+# Input: s = "aabb"
+
+# Output: -1
+
+
 
 # Constraints:
 
-# 1 <= ransomNote.length, magazine.length <= 105
-# ransomNote and magazine consist of lowercase English letters.
+# 1 <= s.length <= 105
+# s consists of only lowercase English letters.
 
 class Solution:
-    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        cnt = Counter(magazine)
-        for c in ransomNote:
-            cnt[c] -= 1
-            if cnt[c] < 0:
-                return False
-        return True
+    def firstUniqChar(self, s: str) -> int:
+        cnt = Counter(s)
+        for i, c in enumerate(s):
+            if cnt[c] == 1:
+                return i
+        return -1
