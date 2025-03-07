@@ -1,37 +1,59 @@
-# Sum of Left Leaves #404
+# Backspace String Compare #844
 
-# Given the root of a binary tree, return the sum of all left leaves.
+# Given two strings s and t, return true if they are equal when both are typed into empty text editors. '#' means a backspace character.
 
-# A leaf is a node with no children. A left leaf is a leaf that is the left child of another node.
+# Note that after backspacing an empty text, the text will continue empty.
+
+ 
 
 # Example 1:
 
-# Input: root = [3,9,20,null,null,15,7]
-# Output: 24
-# Explanation: There are two left leaves in the binary tree, with values 9 and 15 respectively.
+# Input: s = "ab#c", t = "ad#c"
+# Output: true
+# Explanation: Both s and t become "ac".
 # Example 2:
 
-# Input: root = [1]
-# Output: 0
- 
-# Constraints:
-# The number of nodes in the tree is in the range [1, 1000].
-# -1000 <= Node.val <= 1000
+# Input: s = "ab##", t = "c#d#"
+# Output: true
+# Explanation: Both s and t become "".
+# Example 3:
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+# Input: s = "a#c", t = "b"
+# Output: false
+# Explanation: s becomes "c" while t becomes "b".
+ 
+
+# Constraints:
+
+# 1 <= s.length, t.length <= 200
+# s and t only contain lowercase letters and '#' characters.
+
 class Solution:
-    def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
-        if root is None:
-            return 0
-        ans = self.sumOfLeftLeaves(root.right)
-        if root.left:
-            if root.left.left == root.left.right:
-                ans += root.left.val
-            else:
-                ans += self.sumOfLeftLeaves(root.left)
-        return ans
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        i, j, skip1, skip2 = len(s) - 1, len(t) - 1, 0, 0
+        while i >= 0 or j >= 0:
+            while i >= 0:
+                if s[i] == '#':
+                    skip1 += 1
+                    i -= 1
+                elif skip1:
+                    skip1 -= 1
+                    i -= 1
+                else:
+                    break
+            while j >= 0:
+                if t[j] == '#':
+                    skip2 += 1
+                    j -= 1
+                elif skip2:
+                    skip2 -= 1
+                    j -= 1
+                else:
+                    break
+            if i >= 0 and j >= 0:
+                if s[i] != t[j]:
+                    return False
+            elif i >= 0 or j >= 0:
+                return False
+            i, j = i - 1, j - 1
+        return True
