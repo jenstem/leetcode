@@ -1,59 +1,48 @@
-# Backspace String Compare #844
+# Make The String Great #1544
 
-# Given two strings s and t, return true if they are equal when both are typed into empty text editors. '#' means a backspace character.
+# Given a string s of lower and upper case English letters.
 
-# Note that after backspacing an empty text, the text will continue empty.
+# A good string is a string which doesn't have two adjacent characters s[i] and s[i + 1] where:
+
+# 0 <= i <= s.length - 2
+# s[i] is a lower-case letter and s[i + 1] is the same letter but in upper-case or vice-versa.
+# To make the string good, you can choose two adjacent characters that make the string bad and remove them. You can keep doing this until the string becomes good.
+
+# Return the string after making it good. The answer is guaranteed to be unique under the given constraints.
+
+# Notice that an empty string is also good.
 
  
 
 # Example 1:
 
-# Input: s = "ab#c", t = "ad#c"
-# Output: true
-# Explanation: Both s and t become "ac".
+# Input: s = "leEeetcode"
+# Output: "leetcode"
+# Explanation: In the first step, either you choose i = 1 or i = 2, both will result "leEeetcode" to be reduced to "leetcode".
 # Example 2:
 
-# Input: s = "ab##", t = "c#d#"
-# Output: true
-# Explanation: Both s and t become "".
+# Input: s = "abBAcC"
+# Output: ""
+# Explanation: We have many possible scenarios, and all lead to the same answer. For example:
+# "abBAcC" --> "aAcC" --> "cC" --> ""
+# "abBAcC" --> "abBA" --> "aA" --> ""
 # Example 3:
 
-# Input: s = "a#c", t = "b"
-# Output: false
-# Explanation: s becomes "c" while t becomes "b".
+# Input: s = "s"
+# Output: "s"
  
 
 # Constraints:
 
-# 1 <= s.length, t.length <= 200
-# s and t only contain lowercase letters and '#' characters.
+# 1 <= s.length <= 100
+# s contains only lower and upper case English letters.
 
 class Solution:
-    def backspaceCompare(self, s: str, t: str) -> bool:
-        i, j, skip1, skip2 = len(s) - 1, len(t) - 1, 0, 0
-        while i >= 0 or j >= 0:
-            while i >= 0:
-                if s[i] == '#':
-                    skip1 += 1
-                    i -= 1
-                elif skip1:
-                    skip1 -= 1
-                    i -= 1
-                else:
-                    break
-            while j >= 0:
-                if t[j] == '#':
-                    skip2 += 1
-                    j -= 1
-                elif skip2:
-                    skip2 -= 1
-                    j -= 1
-                else:
-                    break
-            if i >= 0 and j >= 0:
-                if s[i] != t[j]:
-                    return False
-            elif i >= 0 or j >= 0:
-                return False
-            i, j = i - 1, j - 1
-        return True
+    def makeGood(self, s: str) -> str:
+        stk = []
+        for c in s:
+            if not stk or abs(ord(stk[-1]) - ord(c)) != 32:
+                stk.append(c)
+            else:
+                stk.pop()
+        return "".join(stk)
