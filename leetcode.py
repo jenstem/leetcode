@@ -1,48 +1,36 @@
-# Make The String Great #1544
+# Remove All Adjacent Duplicates In String #1047
 
-# Given a string s of lower and upper case English letters.
+# You are given a string s consisting of lowercase English letters. A duplicate removal consists of choosing two adjacent and equal letters and removing them.
 
-# A good string is a string which doesn't have two adjacent characters s[i] and s[i + 1] where:
+# We repeatedly make duplicate removals on s until we no longer can.
 
-# 0 <= i <= s.length - 2
-# s[i] is a lower-case letter and s[i + 1] is the same letter but in upper-case or vice-versa.
-# To make the string good, you can choose two adjacent characters that make the string bad and remove them. You can keep doing this until the string becomes good.
-
-# Return the string after making it good. The answer is guaranteed to be unique under the given constraints.
-
-# Notice that an empty string is also good.
+# Return the final string after all such duplicate removals have been made. It can be proven that the answer is unique.
 
  
 
 # Example 1:
 
-# Input: s = "leEeetcode"
-# Output: "leetcode"
-# Explanation: In the first step, either you choose i = 1 or i = 2, both will result "leEeetcode" to be reduced to "leetcode".
+# Input: s = "abbaca"
+# Output: "ca"
+# Explanation: 
+# For example, in "abbaca" we could remove "bb" since the letters are adjacent and equal, and this is the only possible move.  The result of this move is that the string is "aaca", of which only "aa" is possible, so the final string is "ca".
 # Example 2:
 
-# Input: s = "abBAcC"
-# Output: ""
-# Explanation: We have many possible scenarios, and all lead to the same answer. For example:
-# "abBAcC" --> "aAcC" --> "cC" --> ""
-# "abBAcC" --> "abBA" --> "aA" --> ""
-# Example 3:
-
-# Input: s = "s"
-# Output: "s"
+# Input: s = "azxxzy"
+# Output: "ay"
  
 
 # Constraints:
 
-# 1 <= s.length <= 100
-# s contains only lower and upper case English letters.
+# 1 <= s.length <= 105
+# s consists of lowercase English letters.
 
 class Solution:
-    def makeGood(self, s: str) -> str:
+    def removeDuplicates(self, s: str) -> str:
         stk = []
         for c in s:
-            if not stk or abs(ord(stk[-1]) - ord(c)) != 32:
-                stk.append(c)
-            else:
+            if stk and stk[-1] == c:
                 stk.pop()
-        return "".join(stk)
+            else:
+                stk.append(c)
+        return ''.join(stk)
