@@ -1,36 +1,36 @@
-# Remove All Adjacent Duplicates In String #1047
+# Search in a Binary Search Tree #700
 
-# You are given a string s consisting of lowercase English letters. A duplicate removal consists of choosing two adjacent and equal letters and removing them.
+# You are given the root of a binary search tree (BST) and an integer val.
 
-# We repeatedly make duplicate removals on s until we no longer can.
+# Find the node in the BST that the node's value equals val and 
+# return the subtree rooted with that node. If such a node does 
+# not exist, return null.
 
-# Return the final string after all such duplicate removals have been made. It can be proven that the answer is unique.
-
- 
 
 # Example 1:
 
-# Input: s = "abbaca"
-# Output: "ca"
-# Explanation: 
-# For example, in "abbaca" we could remove "bb" since the letters are adjacent and equal, and this is the only possible move.  The result of this move is that the string is "aaca", of which only "aa" is possible, so the final string is "ca".
+# Input: root = [4,2,7,1,3], val = 2
+# Output: [2,1,3]
 # Example 2:
 
-# Input: s = "azxxzy"
-# Output: "ay"
+# Input: root = [4,2,7,1,3], val = 5
+# Output: []
  
 
 # Constraints:
 
-# 1 <= s.length <= 105
-# s consists of lowercase English letters.
+# The number of nodes in the tree is in the range [1, 5000].
+# 1 <= Node.val <= 107
+# root is a binary search tree.
+# 1 <= val <= 107
 
 class Solution:
-    def removeDuplicates(self, s: str) -> str:
-        stk = []
-        for c in s:
-            if stk and stk[-1] == c:
-                stk.pop()
-            else:
-                stk.append(c)
-        return ''.join(stk)
+    def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        if root is None:
+            return None
+        if root.val == val:
+            return root
+        elif val < root.val:
+            return self.searchBST(root.left, val)
+        else:
+            return self.searchBST(root.right, val)    
