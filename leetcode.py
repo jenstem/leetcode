@@ -1,36 +1,51 @@
-# Search in a Binary Search Tree #700
+# Linked List Cycle #141
 
-# You are given the root of a binary search tree (BST) and an integer val.
+# Given head, the head of a linked list, determine if the linked list has a cycle in it.
 
-# Find the node in the BST that the node's value equals val and 
-# return the subtree rooted with that node. If such a node does 
-# not exist, return null.
+# There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
 
+# Return true if there is a cycle in the linked list. Otherwise, return false.
+
+ 
 
 # Example 1:
 
-# Input: root = [4,2,7,1,3], val = 2
-# Output: [2,1,3]
+
+# Input: head = [3,2,0,-4], pos = 1
+# Output: true
+# Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).
 # Example 2:
 
-# Input: root = [4,2,7,1,3], val = 5
-# Output: []
+
+# Input: head = [1,2], pos = 0
+# Output: true
+# Explanation: There is a cycle in the linked list, where the tail connects to the 0th node.
+# Example 3:
+
+
+# Input: head = [1], pos = -1
+# Output: false
+# Explanation: There is no cycle in the linked list.
  
 
 # Constraints:
 
-# The number of nodes in the tree is in the range [1, 5000].
-# 1 <= Node.val <= 107
-# root is a binary search tree.
-# 1 <= val <= 107
+# The number of the nodes in the list is in the range [0, 104].
+# -105 <= Node.val <= 105
+# pos is -1 or a valid index in the linked-list.
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
 class Solution:
-    def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
-        if root is None:
-            return None
-        if root.val == val:
-            return root
-        elif val < root.val:
-            return self.searchBST(root.left, val)
-        else:
-            return self.searchBST(root.right, val)    
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        s = set()
+        while head:
+            if head in s:
+                return True
+            s.add(head)
+            head = head.next
+        return False
