@@ -1,51 +1,30 @@
-# Linked List Cycle #141
+# Reverse String II #541
 
-# Given head, the head of a linked list, determine if the linked list has a cycle in it.
+# Given a string s and an integer k, reverse the first k characters for every 2k characters counting from the start of the string.
 
-# There is a cycle in a linked list if there is some node in the list that can be reached again by continuously following the next pointer. Internally, pos is used to denote the index of the node that tail's next pointer is connected to. Note that pos is not passed as a parameter.
-
-# Return true if there is a cycle in the linked list. Otherwise, return false.
+# If there are fewer than k characters left, reverse all of them. If there are less than 2k but greater than or equal to k characters, then reverse the first k characters and leave the other as original.
 
  
 
 # Example 1:
 
-
-# Input: head = [3,2,0,-4], pos = 1
-# Output: true
-# Explanation: There is a cycle in the linked list, where the tail connects to the 1st node (0-indexed).
+# Input: s = "abcdefg", k = 2
+# Output: "bacdfeg"
 # Example 2:
 
-
-# Input: head = [1,2], pos = 0
-# Output: true
-# Explanation: There is a cycle in the linked list, where the tail connects to the 0th node.
-# Example 3:
-
-
-# Input: head = [1], pos = -1
-# Output: false
-# Explanation: There is no cycle in the linked list.
+# Input: s = "abcd", k = 2
+# Output: "bacd"
  
 
 # Constraints:
 
-# The number of the nodes in the list is in the range [0, 104].
-# -105 <= Node.val <= 105
-# pos is -1 or a valid index in the linked-list.
-
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+# 1 <= s.length <= 104
+# s consists of only lowercase English letters.
+# 1 <= k <= 104
 
 class Solution:
-    def hasCycle(self, head: Optional[ListNode]) -> bool:
-        s = set()
-        while head:
-            if head in s:
-                return True
-            s.add(head)
-            head = head.next
-        return False
+    def reverseStr(self, s: str, k: int) -> str:
+        cs = list(s)
+        for i in range(0, len(cs), 2 * k):
+            cs[i : i + k] = reversed(cs[i : i + k])
+        return "".join(cs)
