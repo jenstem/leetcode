@@ -1,30 +1,40 @@
-# Reverse String II #541
+# Add Strings #415
 
-# Given a string s and an integer k, reverse the first k characters for every 2k characters counting from the start of the string.
+# Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.
 
-# If there are fewer than k characters left, reverse all of them. If there are less than 2k but greater than or equal to k characters, then reverse the first k characters and leave the other as original.
+# You must solve the problem without using any built-in library for handling large integers (such as BigInteger). You must also not convert the inputs to integers directly.
 
- 
 
 # Example 1:
 
-# Input: s = "abcdefg", k = 2
-# Output: "bacdfeg"
+# Input: num1 = "11", num2 = "123"
+# Output: "134"
 # Example 2:
 
-# Input: s = "abcd", k = 2
-# Output: "bacd"
+# Input: num1 = "456", num2 = "77"
+# Output: "533"
+# Example 3:
+
+# Input: num1 = "0", num2 = "0"
+# Output: "0"
  
 
 # Constraints:
 
-# 1 <= s.length <= 104
-# s consists of only lowercase English letters.
-# 1 <= k <= 104
+# 1 <= num1.length, num2.length <= 104
+# num1 and num2 consist of only digits.
+# num1 and num2 don't have any leading zeros except for the zero itself.
+
 
 class Solution:
-    def reverseStr(self, s: str, k: int) -> str:
-        cs = list(s)
-        for i in range(0, len(cs), 2 * k):
-            cs[i : i + k] = reversed(cs[i : i + k])
-        return "".join(cs)
+    def addStrings(self, num1: str, num2: str) -> str:
+        i, j = len(num1) - 1, len(num2) - 1
+        ans = []
+        c = 0
+        while i >= 0 or j >= 0 or c:
+            a = 0 if i < 0 else int(num1[i])
+            b = 0 if j < 0 else int(num2[j])
+            c, v = divmod(a + b + c, 10)
+            ans.append(str(v))
+            i, j = i - 1, j - 1
+        return "".join(ans[::-1])
