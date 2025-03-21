@@ -1,28 +1,38 @@
-# Base 7 #504
+# Remove Letter To Equalize Frequency #2423
 
-# Given an integer num, return a string of its base 7 representation.
+# You are given a 0-indexed string word, consisting of lowercase English letters. You need to select one index and remove the letter at that index from word so that the frequency of every letter present in word is equal.
+
+# Return true if it is possible to remove one letter so that the frequency of all letters in word are equal, and false otherwise.
+
+# Note:
+
+# The frequency of a letter x is the number of times it occurs in the string.
+# You must remove exactly one letter and cannot choose to do nothing.
+ 
 
 # Example 1:
 
-# Input: num = 100
-# Output: "202"
+# Input: word = "abcc"
+# Output: true
+# Explanation: Select index 3 and delete it: word becomes "abc" and each character has a frequency of 1.
 # Example 2:
 
-# Input: num = -7
-# Output: "-10"
+# Input: word = "aazz"
+# Output: false
+# Explanation: We must delete a character, so either the frequency of "a" is 1 and the frequency of "z" is 2, or vice versa. It is impossible to make all present letters have equal frequency.
  
+
 # Constraints:
 
-# -107 <= num <= 107
+# 2 <= word.length <= 100
+# word consists of lowercase English letters only.
 
 class Solution:
-    def convertToBase7(self, num: int) -> str:
-        if num == 0:
-            return '0'
-        if num < 0:
-            return '-' + self.convertToBase7(-num)
-        ans = []
-        while num:
-            ans.append(str(num % 7))
-            num //= 7
-        return ''.join(ans[::-1])
+    def equalFrequency(self, word: str) -> bool:
+        cnt = Counter(word)
+        for c in cnt.keys():
+            cnt[c] -= 1
+            if len(set(v for v in cnt.values() if v)) == 1:
+                return True
+            cnt[c] += 1
+        return False
