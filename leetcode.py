@@ -1,38 +1,44 @@
-# Remove Letter To Equalize Frequency #2423
+# Distribute Money to Maximum Children #2591
 
-# You are given a 0-indexed string word, consisting of lowercase English letters. You need to select one index and remove the letter at that index from word so that the frequency of every letter present in word is equal.
+# You are given an integer money denoting the amount of money (in dollars) that you have and another integer children denoting the number of children that you must distribute the money to.
 
-# Return true if it is possible to remove one letter so that the frequency of all letters in word are equal, and false otherwise.
+# You have to distribute the money according to the following rules:
 
-# Note:
+# All money must be distributed.
+# Everyone must receive at least 1 dollar.
+# Nobody receives 4 dollars.
+# Return the maximum number of children who may receive exactly 8 dollars if you distribute the money according to the aforementioned rules. If there is no way to distribute the money, return -1.
 
-# The frequency of a letter x is the number of times it occurs in the string.
-# You must remove exactly one letter and cannot choose to do nothing.
  
 
 # Example 1:
 
-# Input: word = "abcc"
-# Output: true
-# Explanation: Select index 3 and delete it: word becomes "abc" and each character has a frequency of 1.
+# Input: money = 20, children = 3
+# Output: 1
+# Explanation: 
+# The maximum number of children with 8 dollars will be 1. One of the ways to distribute the money is:
+# - 8 dollars to the first child.
+# - 9 dollars to the second child. 
+# - 3 dollars to the third child.
+# It can be proven that no distribution exists such that number of children getting 8 dollars is greater than 1.
 # Example 2:
 
-# Input: word = "aazz"
-# Output: false
-# Explanation: We must delete a character, so either the frequency of "a" is 1 and the frequency of "z" is 2, or vice versa. It is impossible to make all present letters have equal frequency.
+# Input: money = 16, children = 2
+# Output: 2
+# Explanation: Each child can be given 8 dollars.
  
 
 # Constraints:
 
-# 2 <= word.length <= 100
-# word consists of lowercase English letters only.
+# 1 <= money <= 200
+# 2 <= children <= 30
 
 class Solution:
-    def equalFrequency(self, word: str) -> bool:
-        cnt = Counter(word)
-        for c in cnt.keys():
-            cnt[c] -= 1
-            if len(set(v for v in cnt.values() if v)) == 1:
-                return True
-            cnt[c] += 1
-        return False
+    def distMoney(self, money: int, children: int) -> int:
+        if money < children:
+            return -1
+        if money > 8 * children:
+            return children - 1
+        if money == 8 * children - 4:
+            return children - 2
+        return (money - children) // 7
