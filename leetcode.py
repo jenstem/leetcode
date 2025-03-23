@@ -1,44 +1,58 @@
-# Distribute Money to Maximum Children #2591
+# Substring Matching Pattern #3407
 
-# You are given an integer money denoting the amount of money (in dollars) that you have and another integer children denoting the number of children that you must distribute the money to.
+# You are given a string s and a pattern string p, where p contains exactly one '*' character.
 
-# You have to distribute the money according to the following rules:
+# The '*' in p can be replaced with any sequence of zero or more characters.
 
-# All money must be distributed.
-# Everyone must receive at least 1 dollar.
-# Nobody receives 4 dollars.
-# Return the maximum number of children who may receive exactly 8 dollars if you distribute the money according to the aforementioned rules. If there is no way to distribute the money, return -1.
+# Return true if p can be made a substring of s, and false otherwise.
 
  
 
 # Example 1:
 
-# Input: money = 20, children = 3
-# Output: 1
-# Explanation: 
-# The maximum number of children with 8 dollars will be 1. One of the ways to distribute the money is:
-# - 8 dollars to the first child.
-# - 9 dollars to the second child. 
-# - 3 dollars to the third child.
-# It can be proven that no distribution exists such that number of children getting 8 dollars is greater than 1.
+# Input: s = "leetcode", p = "ee*e"
+
+# Output: true
+
+# Explanation:
+
+# By replacing the '*' with "tcod", the substring "eetcode" matches the pattern.
+
 # Example 2:
 
-# Input: money = 16, children = 2
-# Output: 2
-# Explanation: Each child can be given 8 dollars.
+# Input: s = "car", p = "c*v"
+
+# Output: false
+
+# Explanation:
+
+# There is no substring matching the pattern.
+
+# Example 3:
+
+# Input: s = "luck", p = "u*"
+
+# Output: true
+
+# Explanation:
+
+# The substrings "u", "uc", and "uck" match the pattern.
+
  
 
 # Constraints:
 
-# 1 <= money <= 200
-# 2 <= children <= 30
+# 1 <= s.length <= 50
+# 1 <= p.length <= 50 
+# s contains only lowercase English letters.
+# p contains only lowercase English letters and exactly one '*'
 
 class Solution:
-    def distMoney(self, money: int, children: int) -> int:
-        if money < children:
-            return -1
-        if money > 8 * children:
-            return children - 1
-        if money == 8 * children - 4:
-            return children - 2
-        return (money - children) // 7
+    def hasMatch(self, s: str, p: str) -> bool:
+        i = 0
+        for t in p.split("*"):
+            j = s.find(t, i)
+            if j == -1:
+                return False
+            i = j + len(t)
+        return True
