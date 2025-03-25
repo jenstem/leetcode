@@ -1,58 +1,33 @@
-# Substring Matching Pattern #3407
+# Can Place Flowers #605
 
-# You are given a string s and a pattern string p, where p contains exactly one '*' character.
+# You have a long flowerbed in which some of the plots are planted, and some are not. However, flowers cannot be planted in adjacent plots.
 
-# The '*' in p can be replaced with any sequence of zero or more characters.
-
-# Return true if p can be made a substring of s, and false otherwise.
+# Given an integer array flowerbed containing 0's and 1's, where 0 means empty and 1 means not empty, and an integer n, return true if n new flowers can be planted in the flowerbed without violating the no-adjacent-flowers rule and false otherwise.
 
  
 
 # Example 1:
 
-# Input: s = "leetcode", p = "ee*e"
-
+# Input: flowerbed = [1,0,0,0,1], n = 1
 # Output: true
-
-# Explanation:
-
-# By replacing the '*' with "tcod", the substring "eetcode" matches the pattern.
-
 # Example 2:
 
-# Input: s = "car", p = "c*v"
-
+# Input: flowerbed = [1,0,0,0,1], n = 2
 # Output: false
-
-# Explanation:
-
-# There is no substring matching the pattern.
-
-# Example 3:
-
-# Input: s = "luck", p = "u*"
-
-# Output: true
-
-# Explanation:
-
-# The substrings "u", "uc", and "uck" match the pattern.
-
  
 
 # Constraints:
 
-# 1 <= s.length <= 50
-# 1 <= p.length <= 50 
-# s contains only lowercase English letters.
-# p contains only lowercase English letters and exactly one '*'
+# 1 <= flowerbed.length <= 2 * 104
+# flowerbed[i] is 0 or 1.
+# There are no two adjacent flowers in flowerbed.
+# 0 <= n <= flowerbed.length
 
 class Solution:
-    def hasMatch(self, s: str, p: str) -> bool:
-        i = 0
-        for t in p.split("*"):
-            j = s.find(t, i)
-            if j == -1:
-                return False
-            i = j + len(t)
-        return True
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        flowerbed = [0] + flowerbed + [0]
+        for i in range(1, len(flowerbed) - 1):
+            if sum(flowerbed[i - 1 : i + 2]) == 0:
+                flowerbed[i] = 1
+                n -= 1
+        return n <= 0
