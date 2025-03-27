@@ -1,33 +1,60 @@
-# Can Place Flowers #605
+# Number of Valid Words in a Sentence #2047
 
-# You have a long flowerbed in which some of the plots are planted, and some are not. However, flowers cannot be planted in adjacent plots.
+# A sentence consists of lowercase letters ('a' to 'z'), digits ('0' to '9'), hyphens ('-'), punctuation marks ('!', '.', and ','), and spaces (' ') only. Each sentence can be broken down into one or more tokens separated by one or more spaces ' '.
 
-# Given an integer array flowerbed containing 0's and 1's, where 0 means empty and 1 means not empty, and an integer n, return true if n new flowers can be planted in the flowerbed without violating the no-adjacent-flowers rule and false otherwise.
+# A token is a valid word if all three of the following are true:
+
+# It only contains lowercase letters, hyphens, and/or punctuation (no digits).
+# There is at most one hyphen '-'. If present, it must be surrounded by lowercase characters ("a-b" is valid, but "-ab" and "ab-" are not valid).
+# There is at most one punctuation mark. If present, it must be at the end of the token ("ab,", "cd!", and "." are valid, but "a!b" and "c.," are not valid).
+# Examples of valid words include "a-b.", "afad", "ba-c", "a!", and "!".
+
+# Given a string sentence, return the number of valid words in sentence.
 
  
 
 # Example 1:
 
-# Input: flowerbed = [1,0,0,0,1], n = 1
-# Output: true
+# Input: sentence = "cat and  dog"
+# Output: 3
+# Explanation: The valid words in the sentence are "cat", "and", and "dog".
 # Example 2:
 
-# Input: flowerbed = [1,0,0,0,1], n = 2
-# Output: false
+# Input: sentence = "!this  1-s b8d!"
+# Output: 0
+# Explanation: There are no valid words in the sentence.
+# "!this" is invalid because it starts with a punctuation mark.
+# "1-s" and "b8d" are invalid because they contain digits.
+# Example 3:
+
+# Input: sentence = "alice and  bob are playing stone-game10"
+# Output: 5
+# Explanation: The valid words in the sentence are "alice", "and", "bob", "are", and "playing".
+# "stone-game10" is invalid because it contains digits.
  
 
 # Constraints:
 
-# 1 <= flowerbed.length <= 2 * 104
-# flowerbed[i] is 0 or 1.
-# There are no two adjacent flowers in flowerbed.
-# 0 <= n <= flowerbed.length
+# 1 <= sentence.length <= 1000
+# sentence only contains lowercase English letters, digits, ' ', '-', '!', '.', and ','.
+# There will be at least 1 token.
 
 class Solution:
-    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
-        flowerbed = [0] + flowerbed + [0]
-        for i in range(1, len(flowerbed) - 1):
-            if sum(flowerbed[i - 1 : i + 2]) == 0:
-                flowerbed[i] = 1
-                n -= 1
-        return n <= 0
+    def countValidWords(self, sentence: str) -> int:
+        def check(s: str) -> bool:
+            st = False
+            for i, c in enumerate(s):
+                if c.isdigit() or (c in "!.," and i < len(s) - 1):
+                    return False
+                if c == "-":
+                    if (
+                        st
+                        or i in (0, len(s) - 1)
+                        or not s[i - 1].isalpha()
+                        or not s[i + 1].isalpha()
+                    ):
+                        return False
+                    st = True
+            return True
+
+        return sum(check(s) for s in sentence.split())
