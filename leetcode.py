@@ -1,60 +1,33 @@
-# Number of Valid Words in a Sentence #2047
+# X of a Kind in a Deck of Cards #914
 
-# A sentence consists of lowercase letters ('a' to 'z'), digits ('0' to '9'), hyphens ('-'), punctuation marks ('!', '.', and ','), and spaces (' ') only. Each sentence can be broken down into one or more tokens separated by one or more spaces ' '.
+# You are given an integer array deck where deck[i] represents the number written on the ith card.
 
-# A token is a valid word if all three of the following are true:
+# Partition the cards into one or more groups such that:
 
-# It only contains lowercase letters, hyphens, and/or punctuation (no digits).
-# There is at most one hyphen '-'. If present, it must be surrounded by lowercase characters ("a-b" is valid, but "-ab" and "ab-" are not valid).
-# There is at most one punctuation mark. If present, it must be at the end of the token ("ab,", "cd!", and "." are valid, but "a!b" and "c.," are not valid).
-# Examples of valid words include "a-b.", "afad", "ba-c", "a!", and "!".
-
-# Given a string sentence, return the number of valid words in sentence.
+# Each group has exactly x cards where x > 1, and
+# All the cards in one group have the same integer written on them.
+# Return true if such partition is possible, or false otherwise.
 
  
 
 # Example 1:
 
-# Input: sentence = "cat and  dog"
-# Output: 3
-# Explanation: The valid words in the sentence are "cat", "and", and "dog".
+# Input: deck = [1,2,3,4,4,3,2,1]
+# Output: true
+# Explanation: Possible partition [1,1],[2,2],[3,3],[4,4].
 # Example 2:
 
-# Input: sentence = "!this  1-s b8d!"
-# Output: 0
-# Explanation: There are no valid words in the sentence.
-# "!this" is invalid because it starts with a punctuation mark.
-# "1-s" and "b8d" are invalid because they contain digits.
-# Example 3:
-
-# Input: sentence = "alice and  bob are playing stone-game10"
-# Output: 5
-# Explanation: The valid words in the sentence are "alice", "and", "bob", "are", and "playing".
-# "stone-game10" is invalid because it contains digits.
+# Input: deck = [1,1,1,2,2,2,3,3]
+# Output: false
+# Explanation: No possible partition.
  
 
 # Constraints:
 
-# 1 <= sentence.length <= 1000
-# sentence only contains lowercase English letters, digits, ' ', '-', '!', '.', and ','.
-# There will be at least 1 token.
+# 1 <= deck.length <= 104
+# 0 <= deck[i] < 104
 
 class Solution:
-    def countValidWords(self, sentence: str) -> int:
-        def check(s: str) -> bool:
-            st = False
-            for i, c in enumerate(s):
-                if c.isdigit() or (c in "!.," and i < len(s) - 1):
-                    return False
-                if c == "-":
-                    if (
-                        st
-                        or i in (0, len(s) - 1)
-                        or not s[i - 1].isalpha()
-                        or not s[i + 1].isalpha()
-                    ):
-                        return False
-                    st = True
-            return True
-
-        return sum(check(s) for s in sentence.split())
+    def hasGroupsSizeX(self, deck: List[int]) -> bool:
+        cnt = Counter(deck)
+        return reduce(gcd, cnt.values()) >= 2
