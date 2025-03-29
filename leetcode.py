@@ -1,42 +1,41 @@
-# Long Pressed Name #925
+# Buddy Strings #859
 
-# Your friend is typing his name into a keyboard. Sometimes, when typing a character c, the key might get long pressed, and the character will be typed 1 or more times.
+# Given two strings s and goal, return true if you can swap two letters in s so the result is equal to goal, otherwise, return false.
 
-# You examine the typed characters of the keyboard. Return True if it is possible that it was your friends name, with some characters (possibly none) being long pressed.
+# Swapping letters is defined as taking two indices i and j (0-indexed) such that i != j and swapping the characters at s[i] and s[j].
 
+# For example, swapping at indices 0 and 2 in "abcd" results in "cbad".
  
 
 # Example 1:
 
-# Input: name = "alex", typed = "aaleex"
+# Input: s = "ab", goal = "ba"
 # Output: true
-# Explanation: 'a' and 'e' in 'alex' were long pressed.
+# Explanation: You can swap s[0] = 'a' and s[1] = 'b' to get "ba", which is equal to goal.
 # Example 2:
 
-# Input: name = "saeed", typed = "ssaaedd"
+# Input: s = "ab", goal = "ab"
 # Output: false
-# Explanation: 'e' must have been pressed twice, but it was not in the typed output.
+# Explanation: The only letters you can swap are s[0] = 'a' and s[1] = 'b', which results in "ba" != goal.
+# Example 3:
+
+# Input: s = "aa", goal = "aa"
+# Output: true
+# Explanation: You can swap s[0] = 'a' and s[1] = 'a' to get "aa", which is equal to goal.
  
 
 # Constraints:
 
-# 1 <= name.length, typed.length <= 1000
-# name and typed consist of only lowercase English letters.
+# 1 <= s.length, goal.length <= 2 * 104
+# s and goal consist of lowercase letters.
 
 class Solution:
-    def isLongPressedName(self, name: str, typed: str) -> bool:
-        m, n = len(name), len(typed)
-        i = j = 0
-        while i < m and j < n:
-            if name[i] != typed[j]:
-                return False
-            x = i + 1
-            while x < m and name[x] == name[i]:
-                x += 1
-            y = j + 1
-            while y < n and typed[y] == typed[j]:
-                y += 1
-            if x - i > y - j:
-                return False
-            i, j = x, y
-        return i == m and j == n
+    def buddyStrings(self, s: str, goal: str) -> bool:
+        m, n = len(s), len(goal)
+        if m != n:
+            return False
+        cnt1, cnt2 = Counter(s), Counter(goal)
+        if cnt1 != cnt2:
+            return False
+        diff = sum(s[i] != goal[i] for i in range(n))
+        return diff == 2 or (diff == 0 and any(v > 1 for v in cnt1.values()))
