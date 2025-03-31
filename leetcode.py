@@ -1,33 +1,42 @@
-# X of a Kind in a Deck of Cards #914
+# Long Pressed Name #925
 
-# You are given an integer array deck where deck[i] represents the number written on the ith card.
+# Your friend is typing his name into a keyboard. Sometimes, when typing a character c, the key might get long pressed, and the character will be typed 1 or more times.
 
-# Partition the cards into one or more groups such that:
-
-# Each group has exactly x cards where x > 1, and
-# All the cards in one group have the same integer written on them.
-# Return true if such partition is possible, or false otherwise.
+# You examine the typed characters of the keyboard. Return True if it is possible that it was your friends name, with some characters (possibly none) being long pressed.
 
  
 
 # Example 1:
 
-# Input: deck = [1,2,3,4,4,3,2,1]
+# Input: name = "alex", typed = "aaleex"
 # Output: true
-# Explanation: Possible partition [1,1],[2,2],[3,3],[4,4].
+# Explanation: 'a' and 'e' in 'alex' were long pressed.
 # Example 2:
 
-# Input: deck = [1,1,1,2,2,2,3,3]
+# Input: name = "saeed", typed = "ssaaedd"
 # Output: false
-# Explanation: No possible partition.
+# Explanation: 'e' must have been pressed twice, but it was not in the typed output.
  
 
 # Constraints:
 
-# 1 <= deck.length <= 104
-# 0 <= deck[i] < 104
+# 1 <= name.length, typed.length <= 1000
+# name and typed consist of only lowercase English letters.
 
 class Solution:
-    def hasGroupsSizeX(self, deck: List[int]) -> bool:
-        cnt = Counter(deck)
-        return reduce(gcd, cnt.values()) >= 2
+    def isLongPressedName(self, name: str, typed: str) -> bool:
+        m, n = len(name), len(typed)
+        i = j = 0
+        while i < m and j < n:
+            if name[i] != typed[j]:
+                return False
+            x = i + 1
+            while x < m and name[x] == name[i]:
+                x += 1
+            y = j + 1
+            while y < n and typed[y] == typed[j]:
+                y += 1
+            if x - i > y - j:
+                return False
+            i, j = x, y
+        return i == m and j == n
