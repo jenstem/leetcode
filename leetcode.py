@@ -1,41 +1,22 @@
-# Buddy Strings #859
+# Range Sum of BST #938
 
-# Given two strings s and goal, return true if you can swap two letters in s so the result is equal to goal, otherwise, return false.
+# Given the root node of a binary search tree and two integers low and high, return the sum of values of all nodes with a value in the inclusive range [low, high].
 
-# Swapping letters is defined as taking two indices i and j (0-indexed) such that i != j and swapping the characters at s[i] and s[j].
-
-# For example, swapping at indices 0 and 2 in "abcd" results in "cbad".
- 
-
-# Example 1:
-
-# Input: s = "ab", goal = "ba"
-# Output: true
-# Explanation: You can swap s[0] = 'a' and s[1] = 'b' to get "ba", which is equal to goal.
-# Example 2:
-
-# Input: s = "ab", goal = "ab"
-# Output: false
-# Explanation: The only letters you can swap are s[0] = 'a' and s[1] = 'b', which results in "ba" != goal.
-# Example 3:
-
-# Input: s = "aa", goal = "aa"
-# Output: true
-# Explanation: You can swap s[0] = 'a' and s[1] = 'a' to get "aa", which is equal to goal.
- 
-
-# Constraints:
-
-# 1 <= s.length, goal.length <= 2 * 104
-# s and goal consist of lowercase letters.
-
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def buddyStrings(self, s: str, goal: str) -> bool:
-        m, n = len(s), len(goal)
-        if m != n:
-            return False
-        cnt1, cnt2 = Counter(s), Counter(goal)
-        if cnt1 != cnt2:
-            return False
-        diff = sum(s[i] != goal[i] for i in range(n))
-        return diff == 2 or (diff == 0 and any(v > 1 for v in cnt1.values()))
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        if not root:
+            return 0
+        if root.val < low:
+            return self.rangeSumBST(root.right, low, high)
+        elif root.val > high:
+            return self.rangeSumBST(root.left, low, high)
+        else:
+            return (root.val + 
+                    self.rangeSumBST(root.left, low, high) + 
+                    self.rangeSumBST(root.right, low, high)) 
