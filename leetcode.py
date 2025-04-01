@@ -1,6 +1,6 @@
-# Range Sum of BST #938
+# Increasing Order Search Tree #897
 
-# Given the root node of a binary search tree and two integers low and high, return the sum of values of all nodes with a value in the inclusive range [low, high].
+# Given the root of a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only one right child.
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -9,14 +9,18 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
-        if not root:
-            return 0
-        if root.val < low:
-            return self.rangeSumBST(root.right, low, high)
-        elif root.val > high:
-            return self.rangeSumBST(root.left, low, high)
-        else:
-            return (root.val + 
-                    self.rangeSumBST(root.left, low, high) + 
-                    self.rangeSumBST(root.right, low, high)) 
+    def increasingBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        def inOrderTraversal(node):
+            if not node:
+                return
+            inOrderTraversal(node.left)
+            self.current.right = TreeNode(node.val)
+            self.current = self.current.right
+            inOrderTraversal(node.right)
+
+        dummy = TreeNode(0)
+        self.current = dummy
+        inOrderTraversal(root)
+        return dummy.right
+ 
+
