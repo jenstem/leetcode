@@ -1,26 +1,23 @@
-# Increasing Order Search Tree #897
+# Valid Mountain Array #941
 
-# Given the root of a binary search tree, rearrange the tree in in-order so that the leftmost node in the tree is now the root of the tree, and every node has no left child and only one right child.
+# Given an array of integers arr, return true if and only if it is a valid mountain array.
 
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-class Solution:
-    def increasingBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        def inOrderTraversal(node):
-            if not node:
-                return
-            inOrderTraversal(node.left)
-            self.current.right = TreeNode(node.val)
-            self.current = self.current.right
-            inOrderTraversal(node.right)
+# Recall that arr is a mountain array if and only if:
 
-        dummy = TreeNode(0)
-        self.current = dummy
-        inOrderTraversal(root)
-        return dummy.right
+# arr.length >= 3
+# There exists some i with 0 < i < arr.length - 1 such that:
+# arr[0] < arr[1] < ... < arr[i - 1] < arr[i] 
+# arr[i] > arr[i + 1] > ... > arr[arr.length - 1]
  
 
+class Solution:
+    def validMountainArray(self, arr: List[int]) -> bool:
+        n = len(arr)
+        if n < 3:
+            return False
+        i, j = 0, n - 1
+        while i + 1 < n - 1 and arr[i] < arr[i + 1]:
+            i += 1
+        while j - 1 > 0 and arr[j - 1] > arr[j]:
+            j -= 1
+        return i == j
