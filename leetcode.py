@@ -1,23 +1,32 @@
-# Longest Alternating Array #2765
+# Tenth Line #195
 
-# You are given a 0-indexed integer array nums. A subarray s of length m is called alternating if:
+# Given a text file file.txt, print just the 10th line of the file.
 
-# m is greater than 1.
-# s1 = s0 + 1.
-# The 0-indexed subarray s looks like [s0, s1, s0, s1,...,s(m-1) % 2]. In other words, s1 - s0 = 1, s2 - s1 = -1, s3 - s2 = 1, s4 - s3 = -1, and so on up to s[m - 1] - s[m - 2] = (-1)m.
-# Return the maximum length of all alternating subarrays present in nums or -1 if no such subarray exists.
+# Example:
 
-# A subarray is a contiguous non-empty sequence of elements within an array.
+# Assume that file.txt has the following content:
 
-class Solution:
-    def alternatingSubarray(self, nums: List[int]) -> int:
-        ans, n = -1, len(nums)
-        for i in range(n):
-            k = 1
-            j = i
-            while j + 1 < n and nums[j + 1] - nums[j] == k:
-                j += 1
-                k *= -1
-            if j - i + 1 > 1:
-                ans = max(ans, j - i + 1)
-        return ans
+# Line 1
+# Line 2
+# Line 3
+# Line 4
+# Line 5
+# Line 6
+# Line 7
+# Line 8
+# Line 9
+# Line 10
+# Your script should output the tenth line, which is:
+
+# Line 10
+# Note:
+# 1. If the file contains less than 10 lines, what should you output?
+# 2. There's at least three different solutions. Try to explore all possibilities.
+
+# Read from the file file.txt and output the tenth line to stdout.
+with open('file.txt', 'r') as file:
+    lines = file.readlines()
+    if len(lines) >= 10:
+        print(lines[9].strip())
+    else:
+        print("The file contains less than 10 lines.")
