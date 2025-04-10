@@ -1,17 +1,20 @@
-# Final Array State After K Multiplication Operations 1 #3264
+# Minimum Number Game #2974
 
+# You are given a 0-indexed integer array nums of even length and there is also an empty array arr. Alice and Bob decided to play a game where in every round Alice and Bob will do one move. The rules of the game are as follows:
 
-# You are given an integer array nums, an integer k, and an integer multiplier.
-
-# You need to perform k operations on nums. In each operation:
-
-# Find the minimum value x in nums. If there are multiple occurrences of the minimum value, select the one that appears first.
-# Replace the selected minimum value x with x * multiplier.
-# Return an integer array denoting the final state of nums after performing all k operations.
+# Every round, first Alice will remove the minimum element from nums, and then Bob does the same.
+# Now, first Bob will append the removed element in the array arr, and then Alice does the same.
+# The game continues until nums becomes empty.
+# Return the resulting array arr.
 
 class Solution:
-    def getFinalState(self, nums: List[int], k: int, multiplier: int) -> List[int]:
-            for _ in range(k):
-                min_index = nums.index(min(nums))
-                nums[min_index] = nums[min_index] * multiplier
-            return nums  
+    def numberGame(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        nums.sort()
+        arr = []
+        for _ in nums:
+            zeroIndex = nums.pop(0)
+            firstIndex = nums.pop(0)
+            arr.append(firstIndex)
+            arr.append(zeroIndex)
+        return arr
