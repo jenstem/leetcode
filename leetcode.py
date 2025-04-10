@@ -1,20 +1,9 @@
-# Minimum Number Game #2974
+# Maximum Product of Two Elemtns in an Array #1464
 
-# You are given a 0-indexed integer array nums of even length and there is also an empty array arr. Alice and Bob decided to play a game where in every round Alice and Bob will do one move. The rules of the game are as follows:
-
-# Every round, first Alice will remove the minimum element from nums, and then Bob does the same.
-# Now, first Bob will append the removed element in the array arr, and then Alice does the same.
-# The game continues until nums becomes empty.
-# Return the resulting array arr.
+# Given the array of integers nums, you will choose two different indices 
+# i and j of that array. Return the maximum value of (nums[i]-1)*(nums[j]-1).
 
 class Solution:
-    def numberGame(self, nums: List[int]) -> List[int]:
-        n = len(nums)
+    def maxProduct(self, nums: List[int]) -> int:
         nums.sort()
-        arr = []
-        for _ in range(n // 2):
-            zeroIndex = nums.pop(0)
-            firstIndex = nums.pop(0)
-            arr.append(firstIndex)
-            arr.append(zeroIndex)
-        return arr
+        return (nums[-1] - 1) * (nums[-2] - 1)
