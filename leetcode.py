@@ -12,7 +12,7 @@ class Solution:
         n = len(nums)
         nums.sort()
         arr = []
-        for _ in nums:
+        for _ in range(n // 2):
             zeroIndex = nums.pop(0)
             firstIndex = nums.pop(0)
             arr.append(firstIndex)
