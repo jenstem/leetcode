@@ -1,9 +1,16 @@
-# Maximum Product of Two Elemtns in an Array #1464
+# Check If N and Its Double Exist #1346
 
-# Given the array of integers nums, you will choose two different indices 
-# i and j of that array. Return the maximum value of (nums[i]-1)*(nums[j]-1).
+# Given an array arr of integers, check if there exist two indices i and j such that :
+
+# i != j
+# 0 <= i, j < arr.length
+# arr[i] == 2 * arr[j]
 
 class Solution:
-    def maxProduct(self, nums: List[int]) -> int:
-        nums.sort()
-        return (nums[-1] - 1) * (nums[-2] - 1)
+    def checkIfExist(self, arr: List[int]) -> bool:
+        s = set()
+        for x in arr:
+            if x * 2 in s or (x % 2 == 0 and x // 2 in s):
+                return True
+            s.add(x)
+        return False
