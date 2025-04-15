@@ -1,23 +1,18 @@
-# Fruits into Baskets II #3477
+# Count Prefix and Suffix Pairs I #3042
 
-# You are given two arrays of integers, fruits and baskets, each of length n, where fruits[i] represents the quantity of the ith type of fruit, and baskets[j] represents the capacity of the jth basket.
+# You are given a 0-indexed string array words.
 
-# From left to right, place the fruits according to these rules:
+# Let's define a boolean function isPrefixAndSuffix that takes two strings, str1 and str2:
 
-# Each fruit type must be placed in the leftmost available basket with a capacity greater than or equal to the quantity of that fruit type.
-# Each basket can hold only one type of fruit.
-# If a fruit type cannot be placed in any basket, it remains unplaced.
-# Return the number of fruit types that remain unplaced after all possible allocations are made.
+# isPrefixAndSuffix(str1, str2) returns true if str1 is both a prefix and a suffix of str2, and false otherwise.
+# For example, isPrefixAndSuffix("aba", "ababa") is true because "aba" is a prefix of "ababa" and also a suffix, but isPrefixAndSuffix("abc", "abcd") is false.
+
+# Return an integer denoting the number of index pairs (i, j) such that i < j, and isPrefixAndSuffix(words[i], words[j]) is true.
 
 class Solution:
-    def numOfUnplacedFruits(self, fruits: List[int], baskets: List[int]) -> int:
-        n = len(fruits)
-        vis = [False] * n
-        ans = n
-        for x in fruits:
-            for i, y in enumerate(baskets):
-                if y >= x and not vis[i]:
-                    vis[i] = True
-                    ans -= 1
-                    break
+    def countPrefixSuffixPairs(self, words: List[str]) -> int:
+        ans = 0
+        for i, s in enumerate(words):
+            for t in words[i + 1 :]:
+                ans += t.endswith(s) and t.startswith(s)
         return ans
