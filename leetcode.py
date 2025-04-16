@@ -1,18 +1,14 @@
-# Count Prefix and Suffix Pairs I #3042
+# Maximum Strong Pair XOR I #2932
 
-# You are given a 0-indexed string array words.
+# You are given a 0-indexed integer array nums. A pair of integers x and y is called a strong pair if it satisfies the condition:
 
-# Let's define a boolean function isPrefixAndSuffix that takes two strings, str1 and str2:
+# |x - y| <= min(x, y)
+# You need to select two integers from nums such that they form a strong pair and their bitwise XOR is the maximum among all strong pairs in the array.
 
-# isPrefixAndSuffix(str1, str2) returns true if str1 is both a prefix and a suffix of str2, and false otherwise.
-# For example, isPrefixAndSuffix("aba", "ababa") is true because "aba" is a prefix of "ababa" and also a suffix, but isPrefixAndSuffix("abc", "abcd") is false.
+# Return the maximum XOR value out of all possible strong pairs in the array nums.
 
-# Return an integer denoting the number of index pairs (i, j) such that i < j, and isPrefixAndSuffix(words[i], words[j]) is true.
+# Note that you can pick the same integer twice to form a pair.
 
 class Solution:
-    def countPrefixSuffixPairs(self, words: List[str]) -> int:
-        ans = 0
-        for i, s in enumerate(words):
-            for t in words[i + 1 :]:
-                ans += t.endswith(s) and t.startswith(s)
-        return ans
+    def maximumStrongPairXor(self, nums: List[int]) -> int:
+        return max(x ^ y for x in nums for y in nums if abs(x - y) <= min(x, y))
