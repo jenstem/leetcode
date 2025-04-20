@@ -1,21 +1,19 @@
-# Number of Segments in a String #434
+# Maximum Area of Longest Diagonal Rectangle #3000
 
-# Given a string s, return the number of segments in the string.
+# You are given a 2D 0-indexed integer array dimensions.
 
-# A segment is defined to be a contiguous sequence of non-space characters.
+# For all indices i, 0 <= i < dimensions.length, dimensions[i][0] represents the length and dimensions[i][1] represents the width of the rectangle i.
 
- 
-
-# Example 1:
-
-# Input: s = "Hello, my name is John"
-# Output: 5
-# Explanation: The five segments are ["Hello,", "my", "name", "is", "John"]
-# Example 2:
-
-# Input: s = "Hello"
-# Output: 1
+# Return the area of the rectangle having the longest diagonal. If there are multiple rectangles with the longest diagonal, return the area of the rectangle having the maximum area.
 
 class Solution:
-    def countSegments(self, s: str) -> int:
-        return len(s.split())
+    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:
+        ans = mx = 0
+        for l, w in dimensions:
+            t = l**2 + w**2
+            if mx < t:
+                mx = t
+                ans = l * w
+            elif mx == t:
+                ans = max(ans, l * w)
+        return ans
