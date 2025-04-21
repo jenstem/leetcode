@@ -1,19 +1,20 @@
-# Maximum Area of Longest Diagonal Rectangle #3000
+# Remove Letter To Equalize Frequency #2423
 
-# You are given a 2D 0-indexed integer array dimensions.
+# You are given a 0-indexed string word, consisting of lowercase English letters. You need to select one index and remove the letter at that index from word so that the frequency of every letter present in word is equal.
 
-# For all indices i, 0 <= i < dimensions.length, dimensions[i][0] represents the length and dimensions[i][1] represents the width of the rectangle i.
+# Return true if it is possible to remove one letter so that the frequency of all letters in word are equal, and false otherwise.
 
-# Return the area of the rectangle having the longest diagonal. If there are multiple rectangles with the longest diagonal, return the area of the rectangle having the maximum area.
+# Note:
+
+# The frequency of a letter x is the number of times it occurs in the string.
+# You must remove exactly one letter and cannot choose to do nothing.
 
 class Solution:
-    def areaOfMaxDiagonal(self, dimensions: List[List[int]]) -> int:
-        ans = mx = 0
-        for l, w in dimensions:
-            t = l**2 + w**2
-            if mx < t:
-                mx = t
-                ans = l * w
-            elif mx == t:
-                ans = max(ans, l * w)
-        return ans
+    def equalFrequency(self, word: str) -> bool:
+        cnt = Counter(word)
+        for c in cnt.keys():
+            cnt[c] -= 1
+            if len(set(v for v in cnt.values() if v)) == 1:
+                return True
+            cnt[c] += 1
+        return False
