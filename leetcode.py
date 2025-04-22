@@ -1,20 +1,10 @@
-# Remove Letter To Equalize Frequency #2423
+# Check if All Characters have Equal Number of Occurrences #1941
 
-# You are given a 0-indexed string word, consisting of lowercase English letters. You need to select one index and remove the letter at that index from word so that the frequency of every letter present in word is equal.
+# Given a string s, return true if s is a good string, or false otherwise.
 
-# Return true if it is possible to remove one letter so that the frequency of all letters in word are equal, and false otherwise.
-
-# Note:
-
-# The frequency of a letter x is the number of times it occurs in the string.
-# You must remove exactly one letter and cannot choose to do nothing.
+# A string s is good if all the characters that appear in s have the same number of occurrences (i.e., the same frequency).
 
 class Solution:
-    def equalFrequency(self, word: str) -> bool:
-        cnt = Counter(word)
-        for c in cnt.keys():
-            cnt[c] -= 1
-            if len(set(v for v in cnt.values() if v)) == 1:
-                return True
-            cnt[c] += 1
-        return False
+    def areOccurrencesEqual(self, s: str) -> bool:
+        return len(set(Counter(s).values())) == 1
+
