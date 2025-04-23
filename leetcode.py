@@ -1,10 +1,17 @@
-# Two Out of Three #2032
+# Kth Distinct String in an Array #2053
 
-# Given three integer arrays nums1, nums2, and nums3, return a distinct array 
-# containing all the values that are present in at least two out of the three 
-# arrays. You may return the values in any order.
+# A distinct string is a string that is present only once in an array.
+
+# Given an array of strings arr, and an integer k, return the kth distinct string present in arr. If there are fewer than k distinct strings, return an empty string "".
+
+# Note that the strings are considered in the order in which they appear in the array.
 
 class Solution:
-    def twoOutOfThree(self, nums1: List[int], nums2: List[int], nums3: List[int]) -> List[int]:
-        s1, s2, s3 = set(nums1), set(nums2), set(nums3)
-        return [i for i in range(1, 101) if (i in s1) + (i in s2) + (i in s3) > 1]
+    def kthDistinct(self, arr: List[str], k: int) -> str:
+        count_arr = Counter(arr)
+        for s in arr:
+            if count_arr[s] == 1:
+                k -= 1
+                if k == 0:
+                    return s          
+        return ""
