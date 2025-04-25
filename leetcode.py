@@ -1,17 +1,23 @@
-# Kth Distinct String in an Array #2053
+# Container with Most Water #11
 
-# A distinct string is a string that is present only once in an array.
+# You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
 
-# Given an array of strings arr, and an integer k, return the kth distinct string present in arr. If there are fewer than k distinct strings, return an empty string "".
+# Find two lines that together with the x-axis form a container, such that the container contains the most water.
 
-# Note that the strings are considered in the order in which they appear in the array.
+# Return the maximum amount of water a container can store.
+
+# Notice that you may not slant the container.
 
 class Solution:
-    def kthDistinct(self, arr: List[str], k: int) -> str:
-        count_arr = Counter(arr)
-        for s in arr:
-            if count_arr[s] == 1:
-                k -= 1
-                if k == 0:
-                    return s          
-        return ""
+    def maxArea(self, height: List[int]) -> int:
+        l, r = 0, len(height) - 1
+        ans = 0
+        while l < r:
+            t = min(height[l], height[r]) * (r - l)
+            ans = max(ans, t)
+            if height[l] < height[r]:
+                l += 1
+            else:
+                r -= 1
+        return ans
+
