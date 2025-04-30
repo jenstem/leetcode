@@ -1,19 +1,8 @@
-# Generate Parentheses #22
+# Find Numbers with Even Number of Digits #1295
 
-# Given n pairs of parentheses, write a function to generate 
-# all combinations of well-formed parentheses.  
+# Given an array nums of integers, return how many of 
+# them contain an even number of digits.
 
 class Solution:
-    def generateParenthesis(self, n: int) -> List[str]:
-        def dfs(l, r, t):
-            if l > n or r > n or l < r:
-                return
-            if l == n and r == n:
-                ans.append(t)
-                return
-            dfs(l + 1, r, t + '(')
-            dfs(l, r + 1, t + ')')
-
-        ans = []
-        dfs(0, 0, '')
-        return ans
+    def findNumbers(self, nums: List[int]) -> int:
+        return sum(1 for num in nums if len(str(abs(num))) % 2 == 0)
