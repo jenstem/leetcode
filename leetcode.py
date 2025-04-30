@@ -1,8 +1,12 @@
-# Find Numbers with Even Number of Digits #1295
+# Sort Array by Increasing Frequency #1636
 
-# Given an array nums of integers, return how many of 
-# them contain an even number of digits.
+# Given an array of integers nums, sort the array in increasing 
+# order based on the frequency of the values. If multiple values 
+# have the same frequency, sort them in decreasing order.
+
+# Return the sorted array.
 
 class Solution:
-    def findNumbers(self, nums: List[int]) -> int:
-        return sum(1 for num in nums if len(str(abs(num))) % 2 == 0)
+    def frequencySort(self, nums: List[int]) -> List[int]:
+        count = Counter(nums)
+        return sorted(nums, key=lambda x: (count[x], -x))
