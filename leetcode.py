@@ -1,12 +1,19 @@
-# Sort Array by Increasing Frequency #1636
+# Write a Python program to sort a list using bubble sort 
+# and count the number of swaps performed.
 
-# Given an array of integers nums, sort the array in increasing 
-# order based on the frequency of the values. If multiple values 
-# have the same frequency, sort them in decreasing order.
+def bubble_sort(arr):
+    n = len(arr)
+    swap_count = 0
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                swap_count += 1
+    return arr, swap_count
 
-# Return the sorted array.
-
-class Solution:
-    def frequencySort(self, nums: List[int]) -> List[int]:
-        count = Counter(nums)
-        return sorted(nums, key=lambda x: (count[x], -x))
+# Example usage
+if __name__ == "__main__":
+    sample_list = [64, 34, 25, 12, 22, 11, 90]
+    sorted_list, swaps = bubble_sort(sample_list)
+    print("Sorted List:", sorted_list)
+    print("Number of swaps:", swaps)
